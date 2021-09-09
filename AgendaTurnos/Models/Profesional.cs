@@ -9,6 +9,17 @@ namespace AgendaTurnos.Models
 {
     public class Profesional : Persona
     {
+        [Required]
+        public String Matricula { get; set; }
+        
+        [Required]
+        public Prestacion Prestacion { get; set; }
+        
+        [Required]
+        public DateTime HoraInicio { get; set; }
+        
+        [Required]
+        public DateTime HoraFin { get; set; }
 
     }
 }

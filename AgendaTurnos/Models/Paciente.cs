@@ -8,6 +8,7 @@ namespace AgendaTurnos.Models
 {
     public class Paciente : Persona
     {
-
+        [Required]
+        public String ObraSocial { get; set; }
     }
 }
