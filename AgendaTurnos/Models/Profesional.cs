@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AgendaTurnos.Models
 
 {
-    public class Profesional : Persona
+    public class Profesional : Usuario
     {
         [Required]
         public String Matricula { get; set; }
@@ -21,5 +21,19 @@ namespace AgendaTurnos.Models
         [Required]
         public DateTime HoraFin { get; set; }
 
+        public List<Turno> Turnos { get; set; }
+
+        public void confirmarTurnos(DateTime dia)
+        {
+
+        }
+        public void listarTurnos(DateTime dia)
+        {
+
+        }
+        public void cantTurnosAtendidos(DateTime mes)
+        {
+
+        }
     }
 }

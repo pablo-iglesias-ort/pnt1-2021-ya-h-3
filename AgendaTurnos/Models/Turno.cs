@@ -17,7 +17,7 @@ namespace AgendaTurnos.Models
         public DateTime Fecha { get; set; }
 
         [Required]
-        public Boolean Confirmado { get; set; }
+        public Boolean Confirmado { get; set; } //defecto false
 
         [Required]
         public Boolean Activo { get; set; }

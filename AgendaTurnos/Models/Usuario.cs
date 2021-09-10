@@ -12,10 +12,13 @@ namespace AgendaTurnos.Models
         public Guid Id { get; set; }
 
         [Required]
-        public string  Nombre { get; set; }
+        public string Nombre { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage ="Por favor, ingresar un email valido.")]
+        public string Apellido { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Por favor, ingresar un email valido.")]
         public string Email { get; set; }
 
         [Required]
@@ -26,6 +29,16 @@ namespace AgendaTurnos.Models
         public string Password { get; set; }
 
         [Required]
-        public String rol { get; set; }
+        public string Telefono { get; set; }
+
+        [Required]
+        public string Direccion { get; set; }
+
+        [Required]
+        public string Dni { get; set; }
+
+        [Required]
+        public string Rol { get; set; }
+
     }
 }
