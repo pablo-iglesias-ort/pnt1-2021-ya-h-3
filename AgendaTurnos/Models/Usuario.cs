@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AgendaTurnos.Models
 {
-    public class Usuario
+    public abstract class Usuario
     {
         [Required]
         public Guid Id { get; set; }
@@ -38,7 +38,7 @@ namespace AgendaTurnos.Models
         public string Dni { get; set; }
 
         [Required]
-        public string Rol { get; set; }
+        public string Rol { get; set; } // podria hacerse un instanceof y saber que rol tiene
 
     }
 }
