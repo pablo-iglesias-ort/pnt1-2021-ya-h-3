@@ -18,5 +18,7 @@ namespace AgendaTurnos.Data
 
         public DbSet<AgendaTurnos.Models.Administrador> Administrador { get; set; }
 
+        public DbSet<AgendaTurnos.Models.Formulario> Formulario { get; set; }
+
     }
 }
