@@ -24,5 +24,7 @@ namespace AgendaTurnos.Data
 
         public DbSet<AgendaTurnos.Models.Profesional> Profesional { get; set; }
 
+        public DbSet<AgendaTurnos.Models.Prestacion> Prestacion { get; set; }
+
     }
 }

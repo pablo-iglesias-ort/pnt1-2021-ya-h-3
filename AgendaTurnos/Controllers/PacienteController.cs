@@ -14,7 +14,7 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
-        public List<Paciente> pacientes = new List<Paciente>()
+        static List<Paciente> pacientes = new List<Paciente>()
         {
             new Paciente()
             {
