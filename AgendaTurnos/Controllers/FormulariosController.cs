@@ -14,6 +14,39 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
+        static List<Formulario> formularios = new List<Formulario>()
+        {
+            new Formulario()
+            {
+
+                Id = Guid.NewGuid(),
+                Fecha = new DateTime(2020,10,01),
+                Nombre = "Joel",
+                Apellido = "AAAA",
+                Email = "kskpluss32@gmail.com",
+                Leido = false,
+                Titulo = " ",
+                Mensaje = " ",
+
+            },
+
+            new Formulario()
+            {
+
+                Id = Guid.NewGuid(),
+                Fecha = new DateTime(2020,10,01),
+                Nombre = "MAtias",
+                Apellido = "AAAA",
+                Email = "gow.mt@hotmail.com",
+                Leido = false,
+                Titulo = " ",
+                Mensaje = " ",
+
+            }
+
+
+        };
+
         public FormulariosController(AgendaTurnosContext context)
         {
             _context = context;
@@ -22,7 +55,8 @@ namespace AgendaTurnos.Controllers
         // GET: Formularios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Formulario.ToListAsync());
+            return View(formularios);
+           // return View(await _context.Formulario.ToListAsync());
         }
 
         // GET: Formularios/Details/5
@@ -33,8 +67,11 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            var formulario = await _context.Formulario
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var formulario = await _context.Formulario.FirstOrDefaultAsync(m => m.Id == id);
+
+
+            var formulario = formularios.FirstOrDefault(m => m.Id == id);
+
             if (formulario == null)
             {
                 return NotFound();
@@ -59,8 +96,9 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 formulario.Id = Guid.NewGuid();
-                _context.Add(formulario);
-                await _context.SaveChangesAsync();
+                // _context.Add(formulario);
+                //await _context.SaveChangesAsync();
+                formularios.Add(formulario);
                 return RedirectToAction(nameof(Index));
             }
             return View(formulario);
@@ -74,12 +112,19 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            var formulario = await _context.Formulario.FindAsync(id);
+            var formulario = formularios.FirstOrDefault(e => e.Id == id);
             if (formulario == null)
             {
                 return NotFound();
             }
             return View(formulario);
+
+            /* var formulario = await _context.Formulario.FindAsync(id);
+             if (formulario == null)
+             {
+                 return NotFound();
+             }
+             return View(formulario);*/
         }
 
         // POST: Formularios/Edit/5
@@ -98,8 +143,17 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    _context.Update(formulario);
-                    await _context.SaveChangesAsync();
+                    //_context.Update(formulario);
+                    //await _context.SaveChangesAsync();
+
+                    var formularioExistente = formularios.FirstOrDefault(e => e.Id == id);
+                    formularioExistente.Fecha = formulario.Fecha;
+                    formularioExistente.Email = formulario.Email;
+                    formularioExistente.Nombre = formulario.Nombre;
+                    formularioExistente.Apellido = formulario.Apellido;
+                    formularioExistente.Leido = formulario.Leido;
+                    formularioExistente.Titulo = formulario.Titulo;
+                    formularioExistente.Mensaje = formulario.Mensaje;
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +179,8 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            var formulario = await _context.Formulario
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var formulario = await _context.Formulario.FirstOrDefaultAsync(m => m.Id == id);
+            var formulario = formularios.FirstOrDefault(e => e.Id == id);
             if (formulario == null)
             {
                 return NotFound();
@@ -140,15 +194,18 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var formulario = await _context.Formulario.FindAsync(id);
-            _context.Formulario.Remove(formulario);
-            await _context.SaveChangesAsync();
+            //var formulario = await _context.Formulario.FindAsync(id);
+            //_context.Formulario.Remove(formulario);
+            //await _context.SaveChangesAsync();
+            var formulario = formularios.FirstOrDefault(e => e.Id == id);
+            formularios.Remove(formulario);
             return RedirectToAction(nameof(Index));
         }
 
         private bool FormularioExists(Guid id)
         {
-            return _context.Formulario.Any(e => e.Id == id);
+            return formularios.Exists(e => e.Id == id);
+            //return _context.Formulario.Any(e => e.Id == id);
         }
     }
 }
