@@ -26,8 +26,7 @@ namespace AgendaTurnos
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<AgendaTurnosContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AgendaTurnosContext")));
+            services.AddDbContext<AgendaTurnosContext>(options => options.UseSqlite("filename=AgendaTurnosContext.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
