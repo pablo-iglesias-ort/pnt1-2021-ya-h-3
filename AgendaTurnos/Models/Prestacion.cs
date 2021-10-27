@@ -8,7 +8,7 @@ namespace AgendaTurnos.Models
 {
     public class Prestacion
     {
-        [Required]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
@@ -23,6 +23,8 @@ namespace AgendaTurnos.Models
         [Required]
         public float Precio { get; set; }
 
+
+        //Relacion con otras entidades
         [Required]
         public List<Profesional> Profesionales { get; set; }
 

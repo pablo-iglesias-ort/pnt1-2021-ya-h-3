@@ -38,7 +38,7 @@ namespace AgendaTurnos.Models
         public string Dni { get; set; }
 
         [Required]
-        public string Rol { get; set; } // podria hacerse un instanceof y saber que rol tiene
+        public string Rol { get; } // podria hacerse un instanceof y saber que rol tiene
 
     }
 }

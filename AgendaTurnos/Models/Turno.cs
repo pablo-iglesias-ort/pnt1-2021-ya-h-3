@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace AgendaTurnos.Models
@@ -10,7 +11,7 @@ namespace AgendaTurnos.Models
     public class Turno
     {
 
-        [Required]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
@@ -25,13 +26,20 @@ namespace AgendaTurnos.Models
         [Required]
         public DateTime FechaSolicitud { get; set; }
 
+        public String DescripcionCancelacion { get; set; }
+
+
+        //Relacion con otras Entidades
         [Required]
+        [ForeignKey(nameof(Paciente))]
+        public Guid PacienteId { get; set; }
         public Paciente Paciente { get; set; }
 
-        [Required]
-        public Profesional Profesional { get; set; }
 
-        public String DescripcionCancelacion { get; set; }
+        [Required]
+        [ForeignKey(nameof(Profesional))]
+        public Guid ProfesionalId { get; set; }
+        public Profesional Profesional { get; set; }
 
     }
 
