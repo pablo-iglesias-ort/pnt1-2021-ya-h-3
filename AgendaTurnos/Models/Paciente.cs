@@ -15,7 +15,6 @@ namespace AgendaTurnos.Models
         // Relacion con otras entidades                
         public List<Turno> Turnos { get; set; }
 
-
-
+        public override Rol Rol => Rol.Paciente;
     }
 }

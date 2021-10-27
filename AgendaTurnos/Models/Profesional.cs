@@ -25,5 +25,7 @@ namespace AgendaTurnos.Models
         public Guid PrestacionId { get; set; }
         public Prestacion Prestacion { get; set; }
         public List<Turno> Turnos { get; set; }
+
+        public override Rol Rol => Rol.Profesional;
     }
 }
