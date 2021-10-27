@@ -202,5 +202,22 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Paciente.Any(e => e.Id == id);
         }
+        // metodos del paciente
+        public void generarTurno()
+        {
+
+        }
+        public void cancelarTurno()
+        {
+
+        }
+        public void verTurno()
+        {
+
+        }
+        public void modDatosPersonales()
+        {
+
+        }
     }
 }

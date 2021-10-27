@@ -23,17 +23,6 @@ namespace AgendaTurnos.Models
 
         public List<Turno> Turnos { get; set; }
 
-        public void confirmarTurnos(DateTime dia)
-        {
 
-        }
-        public void listarTurnos(DateTime dia)
-        {
-
-        }
-        public void cantTurnosAtendidos(DateTime mes)
-        {
-
-        }
     }
 }

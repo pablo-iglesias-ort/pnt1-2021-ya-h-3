@@ -15,21 +15,7 @@ namespace AgendaTurnos.Models
 
         public List<Turno> Turnos { get; set; }
 
-        public void generarTurno() { 
-        
-        }
-        public void cancelarTurno()
-        {
 
-        }
-        public void verTurno()
-        {
-
-        }
-        public void modDatosPersonales()
-        {
-
-        }
 
     }
 }

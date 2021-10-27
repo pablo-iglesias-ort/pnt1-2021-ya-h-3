@@ -218,11 +218,42 @@ namespace AgendaTurnos.Controllers
             admins.Remove(administrador);
             return RedirectToAction(nameof(Index));
         }
-
+        // aca van los metodos de Administrador:
         private bool AdministradorExists(Guid id)
         {
             return admins.Exists(e => e.Id == id);
             //return _context.Administrador.Any(e => e.Id == id);
+        }
+        public void altaProfesional()
+        {
+
+        }
+
+        public void confirmarTurnos()
+        {
+            //por cada profesional y por dia
+
+        }
+        public void cancelarTurno()
+        {
+            //descripcion si o si
+
+        }
+        public void altaPrestacion()
+        {
+
+        }
+        public void altaAdmin()
+        {
+
+        }
+        public void deshabilitarAdmin()
+        {
+
+        }
+        public void deshabilitarProfesional()
+        {
+
         }
     }
 }

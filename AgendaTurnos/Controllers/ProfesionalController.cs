@@ -205,10 +205,22 @@ namespace AgendaTurnos.Controllers
             profesionales.Remove(profesional);
             return RedirectToAction(nameof(Index));
         }
-
+        // metodos del profesional
         private bool ProfesionalExists(Guid id)
         {
             return _context.Profesional.Any(e => e.Id == id);
+        }
+        public void confirmarTurnos(DateTime dia)
+        {
+
+        }
+        public void listarTurnos(DateTime dia)
+        {
+
+        }
+        public void cantTurnosAtendidos(DateTime mes)
+        {
+
         }
     }
 }
