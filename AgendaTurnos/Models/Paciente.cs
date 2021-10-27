@@ -12,7 +12,7 @@ namespace AgendaTurnos.Models
         [Required]
         public String ObraSocial { get; set; }
 
-
+        // Relacion con otras entidades                
         public List<Turno> Turnos { get; set; }
 
 
