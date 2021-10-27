@@ -27,7 +27,6 @@ namespace AgendaTurnos.Controllers
                 Telefono = "11111111",
                 Direccion = "sarasa 456",
                 Dni = "1234567",
-                Rol = "Paciente",
                 ObraSocial = "swiss medical",
                 Turnos = new List<Turno>()
             },
@@ -43,7 +42,6 @@ namespace AgendaTurnos.Controllers
                 Telefono = "2222222",
                 Direccion = "falsa 123",
                 Dni = "235789",
-                Rol = "Paciente",
                 ObraSocial = "OSSMLM",
                 Turnos = new List<Turno>()
             }

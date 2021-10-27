@@ -42,7 +42,6 @@ namespace AgendaTurnos.Controllers
                 Telefono = "2222222",
                 Direccion = "verdadero 123",
                 Dni = "1325789",
-                Rol = "Profesional",
                 Matricula = "987643211",
                 HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
                 Turnos = new List<Turno> (),
