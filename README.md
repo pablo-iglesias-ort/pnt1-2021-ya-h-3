@@ -167,16 +167,12 @@ De la misma manera Uds. deben definir los tipos de datos asociados a cada una de
             - El paciente, solo puede tener un turno activo.
         - El paciente, podrá en todo momento, ver si tiene o no un turno solicitado.
             - Verá el estado, si está o no confirmado
-            - Podrá cancelarlo, solo si es hasta 24hs. antes.
-        - El paciente puede llenar un formulario de contacto, para enviar una consulta.
-            - El formulario, puede ser enviado de forma anonima o no. Si el paciente está logueado, cargará automaticamente los datos de este. 
+            - Podrá cancelarlo        
 - Puede actualizar datos de contacto, como el telefono, dirección, Obra Social. Pero no puede modificar su DNI, Nombre, Apellido, etc.
 
 **Profesional**
 - El profesional puede listar los turnos que tiene asignado en el futuro, para atender.
 - El profesional, puede confirmar sus turnos. 
-- También, puede ver un balance de los turnos que ya realizó en el mes calendario. 
-    - Visualizará en este el valor que deberá percibir a fin de mes x valor hora.
 
 **Administrador**
 - Un Administrador, puede confirmar los turnos de cualquier profesional.
