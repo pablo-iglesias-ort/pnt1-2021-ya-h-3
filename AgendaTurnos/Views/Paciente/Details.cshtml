@@ -1,4 +1,4 @@
-﻿@model AgendaTurnos.Models.Usuario
+﻿@model AgendaTurnos.Models.Paciente
 
 @{
     ViewData["Title"] = "Details";
@@ -7,9 +7,15 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Usuario</h4>
+    <h4>Paciente</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ObraSocial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ObraSocial)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>

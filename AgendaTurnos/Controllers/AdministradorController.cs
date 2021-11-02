@@ -29,7 +29,7 @@ namespace AgendaTurnos.Controllers
                 Telefono = "11111111",
                 Direccion = "sarasa 456",
                 Dni = "1234567",
-                Rol = "Administrador"
+
             },
             new Administrador()
 
@@ -43,7 +43,7 @@ namespace AgendaTurnos.Controllers
                 Telefono = "2222222",
                 Direccion = "falsa 123",
                 Dni = "235789",
-                Rol = "Administrador"
+
             },
             new Administrador()
             {
@@ -56,7 +56,7 @@ namespace AgendaTurnos.Controllers
                 Telefono = "33333333333",
                 Direccion = "alfonsina 789",
                 Dni = "78954621",
-                Rol = "Administrador"
+
             }
         };
 
@@ -167,7 +167,7 @@ namespace AgendaTurnos.Controllers
                     usuarioExistente.Telefono = administrador.Telefono;
                     usuarioExistente.Direccion = administrador.Direccion;
                     usuarioExistente.Dni = administrador.Dni;
-                    usuarioExistente.Rol = administrador.Rol;
+
 
 
                 }
@@ -218,11 +218,42 @@ namespace AgendaTurnos.Controllers
             admins.Remove(administrador);
             return RedirectToAction(nameof(Index));
         }
-
+        // aca van los metodos de Administrador:
         private bool AdministradorExists(Guid id)
         {
             return admins.Exists(e => e.Id == id);
             //return _context.Administrador.Any(e => e.Id == id);
+        }
+        public void altaProfesional()
+        {
+
+        }
+
+        public void confirmarTurnos()
+        {
+            //por cada profesional y por dia
+
+        }
+        public void cancelarTurno()
+        {
+            //descripcion si o si
+
+        }
+        public void altaPrestacion()
+        {
+
+        }
+        public void altaAdmin()
+        {
+
+        }
+        public void deshabilitarAdmin()
+        {
+
+        }
+        public void deshabilitarProfesional()
+        {
+
         }
     }
 }

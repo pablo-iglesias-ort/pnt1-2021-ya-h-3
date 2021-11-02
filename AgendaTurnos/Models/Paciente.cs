@@ -8,26 +8,13 @@ namespace AgendaTurnos.Models
 {
     public class Paciente : Usuario
     {
+    
         [Required]
         public String ObraSocial { get; set; }
 
-        public Turno Turno { get; set; }
+        // Relacion con otras entidades                
+        public List<Turno> Turnos { get; set; }
 
-        public void generarTurno() { 
-        
-        }
-        public void cancelarTurno()
-        {
-
-        }
-        public void verTurno()
-        {
-
-        }
-        public void modDatosPersonales()
-        {
-
-        }
-
+        public override Rol Rol => Rol.Paciente;
     }
 }
