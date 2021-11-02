@@ -24,7 +24,10 @@ namespace AgendaTurnos.Models
         [ForeignKey(nameof(Prestacion))]
         public Guid PrestacionId { get; set; }
         public Prestacion Prestacion { get; set; }
+
         public List<Turno> Turnos { get; set; }
+
+        public List<Paciente> Pacientes { get; set; }
 
         public override Rol Rol => Rol.Profesional;
     }

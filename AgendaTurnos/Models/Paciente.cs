@@ -12,8 +12,12 @@ namespace AgendaTurnos.Models
         [Required]
         public String ObraSocial { get; set; }
 
+
+
         // Relacion con otras entidades                
         public List<Turno> Turnos { get; set; }
+
+        public List<Profesional> Profesionales { get; set; }
 
         public override Rol Rol => Rol.Paciente;
     }
