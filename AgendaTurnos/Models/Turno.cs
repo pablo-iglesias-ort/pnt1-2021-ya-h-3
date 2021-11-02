@@ -10,7 +10,7 @@ namespace AgendaTurnos.Models
     public class Turno
     {
 
-        [Required]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]

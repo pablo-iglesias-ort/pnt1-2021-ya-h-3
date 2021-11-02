@@ -8,7 +8,7 @@ namespace AgendaTurnos.Models
 {
     public class Prestacion
     {
-        [Required]
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
