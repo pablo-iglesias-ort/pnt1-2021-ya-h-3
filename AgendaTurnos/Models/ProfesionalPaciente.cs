@@ -20,7 +20,7 @@ namespace AgendaTurnos.Models
         public Paciente Paciente { get; set; }
 
         [ForeignKey(nameof(Profesional))]
-        public Guid Profesionald { get; set; }
+        public Guid ProfesionaId { get; set; }
         public Profesional Profesional { get; set; }
 
 
