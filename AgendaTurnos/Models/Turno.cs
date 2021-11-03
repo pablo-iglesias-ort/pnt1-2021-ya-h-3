@@ -29,12 +29,11 @@ namespace AgendaTurnos.Models
 
         //Relacion con otras entidades
 
-        [Required]
         [ForeignKey(nameof(Paciente))]
         public Guid PacienteId { get; set; }
         public Paciente Paciente { get; set; }
+        
 
-        [Required]
         [ForeignKey(nameof(Profesional))]
         public Guid ProfesionalId { get; set; }
         public Profesional Profesional { get; set; }
