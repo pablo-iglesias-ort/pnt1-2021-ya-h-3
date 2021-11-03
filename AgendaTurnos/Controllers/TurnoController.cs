@@ -66,9 +66,9 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 turno.Id = Guid.NewGuid();
-                //_context.Add(turno);
-                //await _context.SaveChangesAsync();
-                turnos.Add(turno);
+                _context.Add(turno);
+                await _context.SaveChangesAsync();
+                //turnos.Add(turno);
                 return RedirectToAction(nameof(Index));
             }
             return View(turno);

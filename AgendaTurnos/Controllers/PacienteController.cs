@@ -45,6 +45,7 @@ namespace AgendaTurnos.Controllers
                 ObraSocial = "OSSMLM",
                 Turnos = new List<Turno>()
             }
+
         };
 
         public PacienteController(AgendaTurnosContext context)
@@ -55,8 +56,8 @@ namespace AgendaTurnos.Controllers
         // GET: Paciente
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Paciente.ToListAsync());
-            return View(pacientes);
+            return View(await _context.Paciente.ToListAsync());
+            //return View(pacientes);
         }
 
         // GET: Paciente/Details/5
@@ -67,8 +68,8 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
-            var paciente = pacientes.FirstOrDefault(m => m.Id == id);
+            var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
+            //var paciente = pacientes.FirstOrDefault(m => m.Id == id);
             if (paciente == null)
             {
                 return NotFound();
@@ -93,9 +94,9 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 paciente.Id = Guid.NewGuid();
-                //_context.Add(paciente);
-                //await _context.SaveChangesAsync();
-                pacientes.Add(paciente);
+                _context.Add(paciente);
+                await _context.SaveChangesAsync();
+                //pacientes.Add(paciente);
                 return RedirectToAction(nameof(Index));
             }
             return View(paciente);
@@ -135,10 +136,10 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    //_context.Update(paciente);
-                    //await _context.SaveChangesAsync();
+                    _context.Update(paciente);
+                    await _context.SaveChangesAsync();
 
-                    var pacienteExistente = pacientes.FirstOrDefault(e => e.Id == id);
+                    /*var pacienteExistente = pacientes.FirstOrDefault(e => e.Id == id);
                     pacienteExistente.ObraSocial = paciente.ObraSocial;
                     pacienteExistente.Nombre = paciente.Nombre;
                     pacienteExistente.Apellido = paciente.Apellido;
@@ -147,7 +148,7 @@ namespace AgendaTurnos.Controllers
                     pacienteExistente.Password = paciente.Password;
                     pacienteExistente.Telefono = paciente.Telefono;
                     pacienteExistente.Direccion = paciente.Direccion;
-                    pacienteExistente.Dni = paciente.Dni;
+                    pacienteExistente.Dni = paciente.Dni;*/
                 }
                 catch (DbUpdateConcurrencyException)
                 {
