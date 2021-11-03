@@ -25,7 +25,7 @@ namespace AgendaTurnos.Data
 
 
 						// 1er paciente
-						var nuevoPaciente = new Paciente()
+						var nuevoPaciente1 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
 							Apellido = "Salta",
@@ -39,11 +39,11 @@ namespace AgendaTurnos.Data
 							ObraSocial = "Particular",
 							Turnos = new List<Turno>(),
 						};
-						context.Paciente.Add(nuevoPaciente);
+						context.Paciente.Add(nuevoPaciente1);
 						context.SaveChanges();
 
 						// 2do paciente
-						nuevoPaciente = new Paciente()
+						var nuevoPaciente2 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
 							Apellido = "Argento",
@@ -57,11 +57,35 @@ namespace AgendaTurnos.Data
 							ObraSocial = "OSPICAL",
 							Turnos = new List<Turno>(),
 						};
-						context.Paciente.Add(nuevoPaciente);
+						context.Paciente.Add(nuevoPaciente2);
 						context.SaveChanges();
 
-						// 1er profesional
-						var nuevoProfesional = new Profesional()
+					//1er Prestacion
+					var nuevaPrestacion1 = new Prestacion()
+					{
+						Id = Guid.NewGuid(),
+						Nombre = "Oftalmologia",
+						Descripcion = "Oculista",
+						DuracionMinutos = 15,
+						Precio = 800f,
+					};
+					context.Prestacion.Add(nuevaPrestacion1);
+					context.SaveChanges();
+
+					//2da Prestacion
+					var nuevaPrestacion2 = new Prestacion()
+					{
+						Id = Guid.NewGuid(),
+						Nombre = "Odontologia",
+						Descripcion = "Dentista",
+						DuracionMinutos = 30,
+						Precio = 900f,
+					};
+					context.Prestacion.Add(nuevaPrestacion2);
+					context.SaveChanges();
+
+					// 1er profesional
+					var nuevoProfesional1 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
 							Nombre = "Joel",
@@ -76,12 +100,13 @@ namespace AgendaTurnos.Data
 							HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
 							HoraFin = new DateTime(2021, 02, 07, 21, 00, 00),
 							Turnos = new List<Turno>(),
+							PrestacionId = nuevaPrestacion1.Id,
 						};
-						context.Profesional.Add(nuevoProfesional);
+						context.Profesional.Add(nuevoProfesional1);
 						context.SaveChanges();
 
 						// 2do profesional
-						nuevoProfesional = new Profesional()
+						var nuevoProfesional2 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
 							Nombre = "Matias",
@@ -96,13 +121,15 @@ namespace AgendaTurnos.Data
 							HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
 							HoraFin = new DateTime(2021, 02, 07, 13, 30, 00),
 							Turnos = new List<Turno>(),
+							PrestacionId = nuevaPrestacion2.Id,
 						};
-						context.Profesional.Add(nuevoProfesional);
+						context.Profesional.Add(nuevoProfesional2);
 						context.SaveChanges();
 				
 						//1er Admin
-						var nuevoAdmin = new Administrador()
+						var nuevoAdmin1 = new Administrador()
 						{
+							Id = Guid.NewGuid(),
 							Nombre = "Matias",
 							Apellido = "Gonzalez",
 							Email = "msgonzalezsudak@yaoo.com.ar",
@@ -112,12 +139,13 @@ namespace AgendaTurnos.Data
 							Direccion = "calle falsa 123",
 							Dni = "35789645",
 						};
-						context.Administrador.Add(nuevoAdmin);
+						context.Administrador.Add(nuevoAdmin1);
 						context.SaveChanges();
 
 						//2do Admin
-						nuevoAdmin = new Administrador()
+						var nuevoAdmin2 = new Administrador()
 						{
+							Id = Guid.NewGuid(),
 							Nombre = "Homero",
 							Apellido = "Simpsons",
 							Email = "amantedelacomida53@aol.com",
@@ -127,31 +155,8 @@ namespace AgendaTurnos.Data
 							Direccion = "Siempreviva 742",
 							Dni = "15236478",
 						};
-						context.Administrador.Add(nuevoAdmin);
+						context.Administrador.Add(nuevoAdmin2);
 						context.SaveChanges();
-
-						//1er Prestacion
-						var nuevaPrestacion = new Prestacion()
-						{
-							Nombre = "Oftalmologia",
-							Descripcion = "Oculista",
-							DuracionMinutos = 15,
-							Precio = 800f,
-						};
-						context.Prestacion.Add(nuevaPrestacion);
-						context.SaveChanges();
-
-						//2da Prestacion
-						nuevaPrestacion = new Prestacion()
-						{
-							Nombre = "Odontologia",
-							Descripcion = "Dentista",
-							DuracionMinutos = 30,
-							Precio = 900f,
-						};
-						context.Prestacion.Add(nuevaPrestacion);
-						context.SaveChanges();
-
 
 					transaccion.Commit();
 				}
