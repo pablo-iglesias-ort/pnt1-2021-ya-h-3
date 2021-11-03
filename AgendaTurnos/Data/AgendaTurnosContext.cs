@@ -14,17 +14,22 @@ namespace AgendaTurnos.Data
         {
         }
 
-        public DbSet<AgendaTurnos.Models.Usuario> Usuario { get; set; }
+        public DbSet<AgendaTurnos.Models.Usuario> Usuarios { get; set; }
 
-        public DbSet<AgendaTurnos.Models.Administrador> Administrador { get; set; }
+        public DbSet<AgendaTurnos.Models.Administrador> Administradores { get; set; }
 
-        public DbSet<AgendaTurnos.Models.Formulario> Formulario { get; set; }
+        public DbSet<AgendaTurnos.Models.Formulario> Formularios { get; set; }
 
-        public DbSet<AgendaTurnos.Models.Paciente> Paciente { get; set; }
+        public DbSet<AgendaTurnos.Models.Paciente> Pacientes { get; set; }
 
-        public DbSet<AgendaTurnos.Models.Profesional> Profesional { get; set; }
+        public DbSet<AgendaTurnos.Models.Profesional> Profesionales { get; set; }
 
-        public DbSet<AgendaTurnos.Models.Prestacion> Prestacion { get; set; }
+        public DbSet<AgendaTurnos.Models.Prestacion> Prestaciones { get; set; }
+
+        public DbSet<AgendaTurnos.Models.Turno> Turnos { get; set; }
+
+        public DbSet<AgendaTurnos.Models.ProfesionalPaciente> ProfesionalesPacientes { get; set; }
+
 
     }
 }
