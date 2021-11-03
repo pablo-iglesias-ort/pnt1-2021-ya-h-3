@@ -16,36 +16,6 @@ namespace AgendaTurnos.Controllers
 
         static List<Profesional> profesionales = new List<Profesional>()
         {
-            new Profesional()
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Joel",
-                Apellido = "Salum",
-                Email = "kskplusst@hotmail.com",
-                FechaAlta = new DateTime(2021, 02, 07),
-                Password = "45345",
-                Telefono = "2222222",
-                Direccion = "falsa 123",
-                Dni = "235789",                
-                Matricula = "123456789",
-                HoraInicio = new DateTime(2021, 02, 07, 08, 00, 00),
-                Turnos = new List<Turno> (),
-            },
-                        new Profesional()
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Matias",
-                Apellido = "Pintow",
-                Email = "gow.mt@hotmail.com",
-                FechaAlta = new DateTime(2021, 01, 07),
-                Password = "987654321",
-                Telefono = "2222222",
-                Direccion = "verdadero 123",
-                Dni = "1325789",
-                Matricula = "987643211",
-                HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
-                Turnos = new List<Turno> (),
-            }
         };
 
         public ProfesionalController(AgendaTurnosContext context)

@@ -16,35 +16,7 @@ namespace AgendaTurnos.Controllers
 
         static List<Paciente> pacientes = new List<Paciente>()
         {
-            new Paciente()
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Joel",
-                Apellido = "AAAA",
-                Email = "kskpluss32@gmail.com",
-                FechaAlta = new DateTime(2020,10,01),
-                Password = "123456789",
-                Telefono = "11111111",
-                Direccion = "sarasa 456",
-                Dni = "1234567",
-                ObraSocial = "swiss medical",
-                Turnos = new List<Turno>()
-            },
 
-            new Paciente()
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Matias",
-                Apellido = "BBBBB",
-                Email = "gow.mt@hotmail.com",
-                FechaAlta = new DateTime(2021, 02, 07),
-                Password = "987654321",
-                Telefono = "2222222",
-                Direccion = "falsa 123",
-                Dni = "235789",
-                ObraSocial = "OSSMLM",
-                Turnos = new List<Turno>()
-            }
 
         };
 
