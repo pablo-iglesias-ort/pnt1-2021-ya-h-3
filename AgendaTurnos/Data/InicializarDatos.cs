@@ -17,8 +17,13 @@ namespace AgendaTurnos.Data
 			{
 				try
 				{
-					if (!context.Paciente.Any())
+					if (context.Usuario.Any())
 					{
+						// Si ya hay datos aqui, significa que ya los hemos creado previamente
+						return;
+					}
+
+
 						// 1er paciente
 						var nuevoPaciente = new Paciente()
 						{
@@ -55,11 +60,6 @@ namespace AgendaTurnos.Data
 						context.Paciente.Add(nuevoPaciente);
 						context.SaveChanges();
 
-					}
-
-
-					if (!context.Profesional.Any())
-					{
 						// 1er profesional
 						var nuevoProfesional = new Profesional()
 						{
@@ -99,10 +99,7 @@ namespace AgendaTurnos.Data
 						};
 						context.Profesional.Add(nuevoProfesional);
 						context.SaveChanges();
-					}
-
-					if (!context.Administrador.Any())
-                    {
+				
 						//1er Admin
 						var nuevoAdmin = new Administrador()
 						{
@@ -132,10 +129,7 @@ namespace AgendaTurnos.Data
 						};
 						context.Administrador.Add(nuevoAdmin);
 						context.SaveChanges();
-					}
 
-					if (!context.Prestacion.Any())
-					{
 						//1er Prestacion
 						var nuevaPrestacion = new Prestacion()
 						{
@@ -157,7 +151,7 @@ namespace AgendaTurnos.Data
 						};
 						context.Prestacion.Add(nuevaPrestacion);
 						context.SaveChanges();
-					}
+
 
 					transaccion.Commit();
 				}
