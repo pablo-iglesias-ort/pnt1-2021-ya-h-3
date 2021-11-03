@@ -60,6 +60,7 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 administrador.Id = Guid.NewGuid();
+                administrador.FechaAlta = DateTime.Now.Date;
                 _context.Add(administrador);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
