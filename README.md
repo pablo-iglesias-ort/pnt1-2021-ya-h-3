@@ -129,18 +129,6 @@ De la misma manera Uds. deben definir los tipos de datos asociados a cada una de
 - Profesionales
 ```
 
-**Formulario**
-```
-- Fecha
-- Email
-- Nombre
-- Apellido
-- Leido
-- Titulo
-- Mensaje
-- Usuario
-```
-
 **NOTA:** aquí un link para refrescar el uso de los [Data annotations](https://www.c-sharpcorner.com/UploadFile/af66b7/data-annotations-for-mvc/).
 
 <hr />
