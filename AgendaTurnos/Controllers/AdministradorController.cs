@@ -14,52 +14,6 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
-        //Datos estaticos para probar interface de admin
-        static List<Administrador> admins = new List<Administrador>()
-        {
-            new Administrador()
-            {
-                //Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol
-                Id = Guid.NewGuid(),
-                Nombre = "Joel",
-                Apellido = "AAAA",
-                Email = "kskpluss32@gmail.com",
-                FechaAlta = new DateTime(2020,10,01),
-                Password = "123456789",
-                Telefono = "11111111",
-                Direccion = "sarasa 456",
-                Dni = "1234567",
-
-            },
-            new Administrador()
-
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Matias",
-                Apellido = "BBBBB",
-                Email = "gow.mt@hotmail.com",
-                FechaAlta = new DateTime(2021, 02, 07),
-                Password = "987654321",
-                Telefono = "2222222",
-                Direccion = "falsa 123",
-                Dni = "235789",
-
-            },
-            new Administrador()
-            {
-                Id = Guid.NewGuid(),
-                Nombre = "Matias",
-                Apellido = "Gonzalez",
-                Email = "gonzalezsudak@yahoo.com.ar",
-                FechaAlta = new DateTime(2020,11,15),
-                Password = "asadddadas",
-                Telefono = "33333333333",
-                Direccion = "alfonsina 789",
-                Dni = "78954621",
-
-            }
-        };
-
         public AdministradorController(AgendaTurnosContext context)
         {
             _context = context;
@@ -68,8 +22,7 @@ namespace AgendaTurnos.Controllers
         // GET: Administradors
         public async Task<IActionResult> Index()
         {
-            return View(admins);
-            //return View(await _context.Administrador.ToListAsync());
+            return View(await _context.Administrador.ToListAsync());
         }
 
         // GET: Administradors/Details/5
@@ -80,9 +33,8 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            /*var administrador = await _context.Administrador
-                .FirstOrDefaultAsync(m => m.Id == id);*/
-            var administrador = admins.FirstOrDefault(m => m.Id == id);
+            var administrador = await _context.Administrador
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (administrador == null)
             {
@@ -108,9 +60,8 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 administrador.Id = Guid.NewGuid();
-                // _context.Add(administrador);
-                // await _context.SaveChangesAsync();
-                admins.Add(administrador);
+                _context.Add(administrador);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(administrador);
@@ -123,20 +74,13 @@ namespace AgendaTurnos.Controllers
             {
                 return NotFound();
             }
-
-            var administrador = admins.FirstOrDefault(e => e.Id == id);
-            if (administrador == null)
-            {
-                return NotFound();
-            }
-            return View(administrador);
-            /*
+            
             var administrador = await _context.Administrador.FindAsync(id);
             if (administrador == null)
             {
                 return NotFound();
             }
-            return View(administrador);*/
+            return View(administrador);
         }
 
         // POST: Administradors/Edit/5
@@ -154,21 +98,9 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {   //Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol
-
-                    /* _context.Update(administrador);
-                     await _context.SaveChangesAsync();*/
-                    var usuarioExistente = admins.FirstOrDefault(e => e.Id == id);
-                    usuarioExistente.Nombre = administrador.Nombre;
-                    usuarioExistente.Apellido = administrador.Email;
-                    usuarioExistente.Email = administrador.Email;
-                    usuarioExistente.FechaAlta = administrador.FechaAlta;
-                    usuarioExistente.Password = administrador.Password;
-                    usuarioExistente.Telefono = administrador.Telefono;
-                    usuarioExistente.Direccion = administrador.Direccion;
-                    usuarioExistente.Dni = administrador.Dni;
-
-
+                {   
+                     _context.Update(administrador);
+                     await _context.SaveChangesAsync();
 
                 }
                 catch (DbUpdateConcurrencyException)
@@ -195,9 +127,8 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            /* var administrador = await _context.Administrador
-                 .FirstOrDefaultAsync(m => m.Id == id);*/
-            var administrador = admins.FirstOrDefault(m => m.Id == id);
+            var administrador = await _context.Administrador
+                 .FirstOrDefaultAsync(m => m.Id == id);
             if (administrador == null)
             {
                 return NotFound();
@@ -211,18 +142,16 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            /*var administrador = await _context.Administrador.FindAsync(id);
+            var administrador = await _context.Administrador.FindAsync(id);
             _context.Administrador.Remove(administrador);
-            await _context.SaveChangesAsync();*/
-            var administrador = admins.FirstOrDefault(m => m.Id == id);
-            admins.Remove(administrador);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         // aca van los metodos de Administrador:
+
         private bool AdministradorExists(Guid id)
         {
-            return admins.Exists(e => e.Id == id);
-            //return _context.Administrador.Any(e => e.Id == id);
+            return _context.Administrador.Any(e => e.Id == id);
         }
         public void altaProfesional()
         {

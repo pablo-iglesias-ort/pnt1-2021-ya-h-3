@@ -12,25 +12,7 @@ namespace AgendaTurnos.Controllers
 {
     public class PrestacionController : Controller
     {
-       
-
         private readonly AgendaTurnosContext _context;
-
-        static List<Prestacion> prestaciones = new List<Prestacion>()
-        {
-            new Prestacion()
-        {
-            Id =  Guid.NewGuid(),
-            Nombre = "Odontologia",
-            Descripcion = "Atención odontológica",
-            DuracionMinutos = 5,
-            Precio = 10f,
-            Profesionales = new List<Profesional>()
-
-            }
-        };
-
-
 
         public PrestacionController(AgendaTurnosContext context)
         {
@@ -40,8 +22,7 @@ namespace AgendaTurnos.Controllers
         // GET: Prestacion
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Prestacion.ToListAsync());
-            return View(prestaciones);
+            return View(await _context.Prestacion.ToListAsync());
         }
 
         // GET: Prestacion/Details/5
@@ -52,9 +33,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var prestacion = await _context.Prestacion
-            //  .FirstOrDefaultAsync(m => m.Id == id);
-            var prestacion = prestaciones.FirstOrDefault(m => m.Id == id);
+            var prestacion = await _context.Prestacion.FirstOrDefaultAsync(m => m.Id == id);
 
             if (prestacion == null)
             {
@@ -80,9 +59,8 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 prestacion.Id = Guid.NewGuid();
-                // _context.Add(prestacion);
-                //await _context.SaveChangesAsync();
-                prestaciones.Add(prestacion);
+                _context.Add(prestacion);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(prestacion);
@@ -96,8 +74,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var prestacion = await _context.Prestacion.FindAsync(id);
-            var prestacion = prestaciones.FirstOrDefault(m => m.Id == id);
+            var prestacion = await _context.Prestacion.FindAsync(id);
             if (prestacion == null)
             {
                 return NotFound();
@@ -121,13 +98,8 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    //_context.Update(prestacion);
-                    //await _context.SaveChangesAsync();
-                    var prestacionExistentes = prestaciones.FirstOrDefault(m => m.Id == id);
-                    prestacionExistentes.Nombre = prestacion.Nombre;
-                    prestacionExistentes.Descripcion = prestacion.Descripcion;
-                    prestacionExistentes.DuracionMinutos = prestacion.DuracionMinutos;
-                    prestacionExistentes.Precio = prestacion.Precio;
+                    _context.Update(prestacion);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,9 +125,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var prestacion = await _context.Prestacion
-            //  .FirstOrDefaultAsync(m => m.Id == id);
-            var prestacion = prestaciones.FirstOrDefault(m => m.Id == id);
+            var prestacion = await _context.Prestacion.FirstOrDefaultAsync(m => m.Id == id);
 
             if (prestacion == null)
             {
@@ -170,11 +140,9 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            //var prestacion = await _context.Prestacion.FindAsync(id);
-            // _context.Prestacion.Remove(prestacion);
-            //await _context.SaveChangesAsync();
-            var prestacion = prestaciones.FirstOrDefault(m => m.Id == id);
-            prestaciones.Remove(prestacion);
+            var prestacion = await _context.Prestacion.FindAsync(id);
+            _context.Prestacion.Remove(prestacion);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

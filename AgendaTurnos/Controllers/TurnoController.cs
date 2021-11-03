@@ -14,12 +14,6 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
-        static List<Turno> turnos = new List<Turno>()
-        {
-         
-
-        };
-
         public TurnoController(AgendaTurnosContext context)
         {
             _context = context;
@@ -28,8 +22,7 @@ namespace AgendaTurnos.Controllers
         // GET: Turno
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Turno.ToListAsync());
-            return View(turnos);
+            return View(await _context.Turno.ToListAsync());
         }
 
         // GET: Turno/Details/5
@@ -40,14 +33,13 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var turno = await _context.Turno.FirstOrDefaultAsync(m => m.Id == id);
-            var turno = turnos.FirstOrDefault(m => m.Id == id);
+            var turno = await _context.Turno.FirstOrDefaultAsync(m => m.Id == id);
             if (turno == null)
             {
                 return NotFound();
             }
 
-            return View(turnos);
+            return View(turno);
         }
 
         // GET: Turno/Create
@@ -68,7 +60,6 @@ namespace AgendaTurnos.Controllers
                 turno.Id = Guid.NewGuid();
                 _context.Add(turno);
                 await _context.SaveChangesAsync();
-                //turnos.Add(turno);
                 return RedirectToAction(nameof(Index));
             }
             return View(turno);
@@ -82,8 +73,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var turno = await _context.Turno.FindAsync(id);
-            var turno = turnos.FirstOrDefault(m => m.Id == id);
+            var turno = await _context.Turno.FindAsync(id);
 
             if (turno == null)
             {
@@ -108,15 +98,8 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    //_context.Update(turno);
-                    //await _context.SaveChangesAsync();
-
-                    var turnoExistente = turnos.FirstOrDefault(e => e.Id == id);
-                    turnoExistente.Fecha = turno.Fecha;
-                    turnoExistente.Confirmado = turno.Confirmado;
-                    turnoExistente.Activo = turno.Activo;
-                    turnoExistente.FechaSolicitud = turno.FechaSolicitud;
-                    turnoExistente.DescripcionCancelacion = turno.DescripcionCancelacion;
+                    _context.Update(turno);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,8 +125,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var turno = await _context.Turno.FirstOrDefaultAsync(m => m.Id == id);
-            var turno = turnos.FirstOrDefault(e => e.Id == id);
+            var turno = await _context.Turno.FirstOrDefaultAsync(m => m.Id == id);
             if (turno == null)
             {
                 return NotFound();
@@ -157,11 +139,9 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            /*var turno = await _context.Turno.FindAsync(id);
+            var turno = await _context.Turno.FindAsync(id);
             _context.Turno.Remove(turno);
-            await _context.SaveChangesAsync();*/
-            var turno = turnos.FirstOrDefault(e => e.Id == id);
-            turnos.Remove(turno);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

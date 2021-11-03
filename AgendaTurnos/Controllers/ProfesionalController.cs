@@ -14,10 +14,6 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
-        static List<Profesional> profesionales = new List<Profesional>()
-        {
-        };
-
         public ProfesionalController(AgendaTurnosContext context)
         {
             _context = context;
@@ -26,8 +22,7 @@ namespace AgendaTurnos.Controllers
         // GET: Profesional
         public async Task<IActionResult> Index()
         {
-            return View(profesionales);
-        //    return View(await _context.Profesional.ToListAsync());
+            return View(await _context.Profesional.ToListAsync());
         }
 
         // GET: Profesional/Details/5
@@ -38,9 +33,8 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var profesional = await _context.Profesional
-            //  .FirstOrDefaultAsync(m => m.Id == id);
-            var profesional = profesionales.FirstOrDefault(m => m.Id == id);
+            var profesional = await _context.Profesional
+              .FirstOrDefaultAsync(m => m.Id == id);
             if (profesional == null)
             {
                 return NotFound();
@@ -65,9 +59,8 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 profesional.Id = Guid.NewGuid();
-                //_context.Add(profesional);
-                //await _context.SaveChangesAsync();
-                profesionales.Add(profesional);
+                _context.Add(profesional);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(profesional);
@@ -81,8 +74,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var profesional = await _context.Profesional.FindAsync(id);
-            var profesional = profesionales.FirstOrDefault(m => m.Id == id);
+            var profesional = await _context.Profesional.FindAsync(id);
 
             if (profesional == null)
             {
@@ -107,22 +99,8 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    //_context.Update(profesional);
-                    //await _context.SaveChangesAsync();
-                    var profesionalExistente = profesionales.FirstOrDefault(m => m.Id == id);
-                    profesionalExistente.Matricula = profesional.Matricula;
-                    profesionalExistente.HoraInicio = profesional.HoraInicio;
-                    profesionalExistente.HoraFin = profesional.HoraFin;
-                    profesionalExistente.Nombre = profesional.Nombre;
-                    profesionalExistente.Apellido = profesional.Apellido;
-                    profesionalExistente.Email = profesional.Email;
-                    profesionalExistente.FechaAlta = profesional.FechaAlta;
-                    profesionalExistente.Password = profesional.Password;
-                    profesionalExistente.Telefono = profesional.Telefono;
-                    profesionalExistente.Direccion = profesional.Direccion;
-                    profesionalExistente.Dni = profesional.Dni;
-
-
+                    _context.Update(profesional);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,10 +126,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var profesional = await _context.Profesional
-
-            //.FirstOrDefaultAsync(m => m.Id == id);
-            var profesional = profesionales.FirstOrDefault(m => m.Id == id);
+            var profesional = await _context.Profesional.FirstOrDefaultAsync(m => m.Id == id);
 
             if (profesional == null)
             {
@@ -166,11 +141,9 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            //var profesional = await _context.Profesional.FindAsync(id);
-            //_context.Profesional.Remove(profesional);
-            //await _context.SaveChangesAsync();
-            var profesional = profesionales.FirstOrDefault(m => m.Id == id);
-            profesionales.Remove(profesional);
+            var profesional = await _context.Profesional.FindAsync(id);
+            _context.Profesional.Remove(profesional);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         // metodos del profesional

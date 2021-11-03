@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgendaTurnos.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AgendaTurnos
 {
@@ -13,7 +15,11 @@ namespace AgendaTurnos
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            InicializarDatos(host);
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +28,14 @@ namespace AgendaTurnos
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        public static void InicializarDatos(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<AgendaTurnosContext>();
+                InicializacionDeDatos.Inicializar(context);
+            }
+        }
     }
 }

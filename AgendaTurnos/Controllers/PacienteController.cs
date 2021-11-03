@@ -14,12 +14,6 @@ namespace AgendaTurnos.Controllers
     {
         private readonly AgendaTurnosContext _context;
 
-        static List<Paciente> pacientes = new List<Paciente>()
-        {
-
-
-        };
-
         public PacienteController(AgendaTurnosContext context)
         {
             _context = context;
@@ -29,7 +23,6 @@ namespace AgendaTurnos.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Paciente.ToListAsync());
-            //return View(pacientes);
         }
 
         // GET: Paciente/Details/5
@@ -41,7 +34,7 @@ namespace AgendaTurnos.Controllers
             }
 
             var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
-            //var paciente = pacientes.FirstOrDefault(m => m.Id == id);
+
             if (paciente == null)
             {
                 return NotFound();
@@ -68,7 +61,6 @@ namespace AgendaTurnos.Controllers
                 paciente.Id = Guid.NewGuid();
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
-                //pacientes.Add(paciente);
                 return RedirectToAction(nameof(Index));
             }
             return View(paciente);
@@ -82,8 +74,7 @@ namespace AgendaTurnos.Controllers
                 return NotFound();
             }
 
-            //var paciente = await _context.Paciente.FindAsync(id);
-            var paciente = pacientes.FirstOrDefault(m => m.Id == id);
+            var paciente = await _context.Paciente.FindAsync(id);
 
             if (paciente == null)
             {
@@ -111,16 +102,6 @@ namespace AgendaTurnos.Controllers
                     _context.Update(paciente);
                     await _context.SaveChangesAsync();
 
-                    /*var pacienteExistente = pacientes.FirstOrDefault(e => e.Id == id);
-                    pacienteExistente.ObraSocial = paciente.ObraSocial;
-                    pacienteExistente.Nombre = paciente.Nombre;
-                    pacienteExistente.Apellido = paciente.Apellido;
-                    pacienteExistente.Email = paciente.Email;
-                    pacienteExistente.FechaAlta = paciente.FechaAlta;
-                    pacienteExistente.Password = paciente.Password;
-                    pacienteExistente.Telefono = paciente.Telefono;
-                    pacienteExistente.Direccion = paciente.Direccion;
-                    pacienteExistente.Dni = paciente.Dni;*/
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,9 +126,8 @@ namespace AgendaTurnos.Controllers
             {
                 return NotFound();
             }
+            var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
 
-            //var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
-            var paciente = pacientes.FirstOrDefault(e => e.Id == id);
             if (paciente == null)
             {
                 return NotFound();
@@ -161,11 +141,9 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            /*var paciente = await _context.Paciente.FindAsync(id);
+            var paciente = await _context.Paciente.FindAsync(id);
             _context.Paciente.Remove(paciente);
-            await _context.SaveChangesAsync();*/
-            var paciente = pacientes.FirstOrDefault(e => e.Id == id);
-            pacientes.Remove(paciente);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
