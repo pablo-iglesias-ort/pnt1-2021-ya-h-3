@@ -152,22 +152,24 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Paciente.Any(e => e.Id == id);
         }
-        // metodos del paciente
-        public void generarTurno()
+       
+        public IActionResult Turno(Guid id)
         {
+            if (!PacienteExists(id))
+            {
+                return NotFound();
+            }
 
-        }
-        public void cancelarTurno()
-        {
+            var turnos = _context.Paciente
+                                .Include(paciente => paciente.Turnos)
+                                .FirstOrDefault(e => e.Id == id);
 
-        }
-        public void verTurno()
-        {
+            //var turnoActivo = turnos.Turnos.Select(e => e.Id == id);
 
-        }
-        public void modDatosPersonales()
-        {
 
+            ViewData["PacienteId"] = id;
+            return View(turnos);
         }
+
     }
 }

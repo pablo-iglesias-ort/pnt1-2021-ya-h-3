@@ -158,6 +158,38 @@ namespace AgendaTurnos.Data
 						context.Administrador.Add(nuevoAdmin2);
 						context.SaveChanges();
 
+
+					//Creamos un turno para Pepe
+					var nuevoTurno = new Turno()
+					{
+						Id = Guid.NewGuid(),
+						Fecha = DateTime.Now.Date,
+						Activo = true,
+						ProfesionalId = nuevoProfesional2.Id,
+						PacienteId = nuevoPaciente2.Id,
+						Profesional = nuevoProfesional2,
+						Paciente = nuevoPaciente2,
+
+					};
+
+						context.Turno.Add(nuevoTurno);
+						context.SaveChanges();
+
+					var nuevoTurno2 = new Turno()
+					{
+						Id = Guid.NewGuid(),
+						Fecha = DateTime.Now.Date,
+						Activo = true,
+						ProfesionalId = nuevoProfesional1.Id,
+						PacienteId = nuevoPaciente1.Id,
+						Profesional = nuevoProfesional1,
+						Paciente = nuevoPaciente1,
+
+					};
+
+					context.Turno.Add(nuevoTurno2);
+					context.SaveChanges();
+
 					transaccion.Commit();
 				}
 				catch

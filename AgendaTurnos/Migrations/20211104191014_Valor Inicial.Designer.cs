@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaTurnos.Migrations
 {
     [DbContext(typeof(AgendaTurnosContext))]
-    [Migration("20211103012519_Versión Inicial")]
-    partial class VersiónInicial
+    [Migration("20211104191014_Valor Inicial")]
+    partial class ValorInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
