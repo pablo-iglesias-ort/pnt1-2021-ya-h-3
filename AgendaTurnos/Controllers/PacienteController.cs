@@ -153,7 +153,7 @@ namespace AgendaTurnos.Controllers
             return _context.Paciente.Any(e => e.Id == id);
         }
        
-        public IActionResult Turno(Guid id)
+        public IActionResult Turnos(Guid id)
         {
             if (!PacienteExists(id))
             {
@@ -162,7 +162,8 @@ namespace AgendaTurnos.Controllers
 
             var turnos = _context.Paciente
                                 .Include(paciente => paciente.Turnos)
-                                .FirstOrDefault(e => e.Id == id);
+                                .FirstOrDefault(e => e.Id == id)
+                                .Turnos;
 
             //var turnoActivo = turnos.Turnos.Select(e => e.Id == id);
 
