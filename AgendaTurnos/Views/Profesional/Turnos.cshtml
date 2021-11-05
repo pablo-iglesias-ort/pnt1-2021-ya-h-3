@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<AgendaTurnos.Models.Turno>
+
+@{
+    ViewData["Title"] = "Turnos";
+}
+
+<h1>Turnos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente)
+            </th>      
+            <th>
+                @Html.DisplayNameFor(model => model.Confirmado)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Apellido)
+                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmado)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Details" asp-route-id=@ViewData["ProfesionalId"] asp-route-otroCampo="Details">Volver al Profesional</a>
+</div>

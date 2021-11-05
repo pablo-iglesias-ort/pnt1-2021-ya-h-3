@@ -164,5 +164,20 @@ namespace AgendaTurnos.Controllers
         {
 
         }
+        public IActionResult Turnos(Guid id)
+        {
+            if (!ProfesionalExists(id))
+            {
+                return NotFound();
+            }
+
+            var turnos = _context.Profesional
+                                .Include(profesional => profesional.Turnos)
+                                    .ThenInclude(turno => turno.Paciente)
+                                .FirstOrDefault(e => e.Id == id)
+                                .Turnos;
+            ViewData["ProfesionalId"] = id;
+            return View(turnos);
+        }
     }
 }
