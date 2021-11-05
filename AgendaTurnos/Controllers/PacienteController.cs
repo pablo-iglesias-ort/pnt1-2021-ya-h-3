@@ -162,6 +162,8 @@ namespace AgendaTurnos.Controllers
 
             var turnos = _context.Paciente
                                 .Include(paciente => paciente.Turnos)
+                                   .ThenInclude(turno => turno.Profesional)
+                                        .ThenInclude(prof => prof.Prestacion)
                                 .FirstOrDefault(e => e.Id == id)
                                 .Turnos;
             ViewData["PacienteId"] = id;
