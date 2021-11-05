@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Profesional)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Confirmado)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +29,10 @@
                 @Html.DisplayFor(modelItem => item.FechaSolicitud)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Profesional)
+                @Html.DisplayFor(modelItem => item.Profesional.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmado)
             </td>
         </tr>
         }

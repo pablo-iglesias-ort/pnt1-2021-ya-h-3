@@ -164,10 +164,6 @@ namespace AgendaTurnos.Controllers
                                 .Include(paciente => paciente.Turnos)
                                 .FirstOrDefault(e => e.Id == id)
                                 .Turnos;
-
-            //var turnoActivo = turnos.Turnos.Select(e => e.Id == id);
-
-
             ViewData["PacienteId"] = id;
             return View(turnos);
         }
