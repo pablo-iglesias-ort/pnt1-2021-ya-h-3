@@ -1,4 +1,5 @@
 ﻿using AgendaTurnos.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,11 +19,12 @@ namespace AgendaTurnos.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = nameof(Rol.Paciente))]
         public IActionResult Privacy()
         {
             return View();

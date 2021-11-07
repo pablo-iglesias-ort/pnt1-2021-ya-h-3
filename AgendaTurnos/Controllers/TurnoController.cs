@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
 using AgendaTurnos.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgendaTurnos.Controllers
 {
+    [Authorize]
     public class TurnoController : Controller
     {
         private readonly AgendaTurnosContext _context;
