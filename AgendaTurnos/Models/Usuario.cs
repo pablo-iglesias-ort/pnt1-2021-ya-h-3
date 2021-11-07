@@ -11,11 +11,6 @@ namespace AgendaTurnos.Models
         [Key]
         public Guid Id { get; set; }
 
-        [MaxLength(20, ErrorMessage = "La longitud máxima es {1}")]
-        [MinLength(8, ErrorMessage = "La longitud mínima es {1}")]
-        [Display(Name = "Usuario")]
-        public string User { get; set; }
-
         [Required]
         public string Nombre { get; set; }
 

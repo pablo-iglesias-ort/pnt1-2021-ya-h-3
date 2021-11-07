@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgendaTurnos.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Profesional")]
     public class ProfesionalController : Controller
     {
         private readonly AgendaTurnosContext _context;

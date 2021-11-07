@@ -115,10 +115,6 @@ namespace AgendaTurnos.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("User")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
                     b.HasKey("Id");
 
                     b.ToTable("Usuario");

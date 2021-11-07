@@ -44,7 +44,7 @@ namespace AgendaTurnos.Controllers
             {
 
                 // Verificamos que exista el usuario
-                var user = await _context.Usuario.FirstOrDefaultAsync(u => u.User == usuario);
+                var user = await _context.Usuario.FirstOrDefaultAsync(u => u.Email == usuario);
                 if (user != null)
                 {
 
@@ -57,9 +57,7 @@ namespace AgendaTurnos.Controllers
                         ClaimsIdentity identidad = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
                         // Agregamos a la credencial el nombre de usuario
-                        identidad.AddClaim(new Claim(ClaimTypes.Name, user.User));
-                        // Agregamos a la credencial el nombre del estudiante/administrador
-                        identidad.AddClaim(new Claim(ClaimTypes.GivenName, user.Nombre));
+                        identidad.AddClaim(new Claim(ClaimTypes.Name, usuario));
                         // Agregamos a la credencial el Rol
                         identidad.AddClaim(new Claim(ClaimTypes.Role, user.Rol.ToString()));
 

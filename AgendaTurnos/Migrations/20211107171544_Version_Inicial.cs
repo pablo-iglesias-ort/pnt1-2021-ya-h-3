@@ -27,7 +27,6 @@ namespace AgendaTurnos.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    User = table.Column<string>(maxLength: 20, nullable: true),
                     Nombre = table.Column<string>(nullable: false),
                     Apellido = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),

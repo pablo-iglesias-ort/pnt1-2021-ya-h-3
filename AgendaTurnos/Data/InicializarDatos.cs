@@ -32,11 +32,9 @@ namespace AgendaTurnos.Data
 						var nuevoPaciente1 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
-							User = "psalta",
 							Apellido = "Salta",
 							Nombre = "Paloma",
 							Email = "psalta@gmail.com",
-							//FechaAlta = DateTime.Now.Date,
 							Dni = "25689741",
 							Password = seguridad.EncriptarPass("paloma1234"),
 							Telefono = "1144889966",
@@ -51,11 +49,9 @@ namespace AgendaTurnos.Data
 						var nuevoPaciente2 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
-							User = "pargento",
 							Apellido = "Argento",
 							Nombre = "Pepe",
 							Email = "pepeargento@yahoo.com.ar",
-							//FechaAlta = DateTime.Now.Date,
 							Dni = "20145698",
 							Password = seguridad.EncriptarPass("racingCampeon"),
 							Telefono = "1158963214",
@@ -94,11 +90,9 @@ namespace AgendaTurnos.Data
 					var nuevoProfesional1 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
-							User = "jsalum",
 							Nombre = "Joel",
 							Apellido = "Salum",
 							Email = "kskplusst@hotmail.com",
-							//FechaAlta = DateTime.Now.Date,
 							Password = seguridad.EncriptarPass("87aB2365"),
 							Telefono = "11111111",
 							Direccion = "sarasa 456",
@@ -116,11 +110,9 @@ namespace AgendaTurnos.Data
 						var nuevoProfesional2 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
-							User = "mpintow",
 							Nombre = "Matias",
 							Apellido = "Pintow",
 							Email = "gow.mt@hotmail.com",
-							//FechaAlta = DateTime.Now.Date,
 							Password = seguridad.EncriptarPass("987654321"),
 							Telefono = "2222222",
 							Direccion = "verdadero 456",
@@ -138,11 +130,9 @@ namespace AgendaTurnos.Data
 						var nuevoAdmin1 = new Administrador()
 						{
 							Id = Guid.NewGuid(),
-							User = "mgonzalez",
 							Nombre = "Matias",
 							Apellido = "Gonzalez",
 							Email = "msgonzalezsudak@yahoo.com.ar",
-							//FechaAlta = DateTime.Now.Date,
 							Password = seguridad.EncriptarPass("ABC123qwerty"),
 							Telefono = "1125897463",
 							Direccion = "calle falsa 123",
@@ -155,11 +145,9 @@ namespace AgendaTurnos.Data
 						var nuevoAdmin2 = new Administrador()
 						{
 							Id = Guid.NewGuid(),
-							User = "hsimpson",
 							Nombre = "Homero",
 							Apellido = "Simpson",
 							Email = "amantedelacomida53@aol.com",
-							//FechaAlta = DateTime.Now.Date,
 							Password = seguridad.EncriptarPass("marchIlove1"),
 							Telefono = "1169874523",
 							Direccion = "Siempreviva 742",
