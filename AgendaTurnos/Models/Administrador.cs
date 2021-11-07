@@ -8,5 +8,7 @@ namespace AgendaTurnos.Models
     public class Administrador : Usuario
     {
         public override Rol Rol => Rol.Administrador;
+        public override DateTime FechaAlta => DateTime.Now.Date;
+
     }
 }

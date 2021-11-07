@@ -59,7 +59,7 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 paciente.Id = Guid.NewGuid();
-                paciente.FechaAlta = DateTime.Now.Date;
+                //paciente.FechaAlta = DateTime.Now.Date;
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

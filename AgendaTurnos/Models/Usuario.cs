@@ -11,6 +11,11 @@ namespace AgendaTurnos.Models
         [Key]
         public Guid Id { get; set; }
 
+        [MaxLength(20, ErrorMessage = "La longitud máxima es {1}")]
+        [MinLength(8, ErrorMessage = "La longitud mínima es {1}")]
+        [Display(Name = "Usuario")]
+        public string User { get; set; }
+
         [Required]
         public string Nombre { get; set; }
 
@@ -21,12 +26,12 @@ namespace AgendaTurnos.Models
         [EmailAddress(ErrorMessage = "Por favor, ingresar un email valido.")]
         public string Email { get; set; }
 
-        [Required]
-        public DateTime FechaAlta { get; set; }
+        public abstract DateTime FechaAlta { get; }
 
         [Required]
         [MinLength(8, ErrorMessage = "La contraseña debe tener como minimo 8(ocho) caracteres.")]
-        public string Password { get; set; }
+        [ScaffoldColumn(false)]
+        public byte[] Password { get; set; }
 
         [Required]
         public string Telefono { get; set; }
@@ -37,8 +42,7 @@ namespace AgendaTurnos.Models
         [Required]
         public string Dni { get; set; }
 
-
-        public abstract Rol Rol { get; } // podria hacerse un instanceof y saber que rol tiene
+        public abstract Rol Rol { get; }
 
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AgendaTurnos
 {
@@ -24,6 +25,15 @@ namespace AgendaTurnos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                opciones =>
+                {
+                    opciones.LoginPath = "/Login/Ingresar";
+                    opciones.AccessDeniedPath = "/Login/AccesoDenegado";
+                    opciones.LogoutPath = "/Login/Salir";
+                }
+            );
+
             services.AddControllersWithViews();
 
             services.AddDbContext<AgendaTurnosContext>(options => options.UseSqlite("filename=AgendaTurnosContext.db"));

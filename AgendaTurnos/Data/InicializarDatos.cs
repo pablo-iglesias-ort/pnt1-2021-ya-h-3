@@ -1,4 +1,5 @@
-﻿using AgendaTurnos.Data;
+﻿using AgendaTurnos.Controllers;
+using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,12 @@ namespace AgendaTurnos.Data
 {
 	public static class InicializacionDeDatos
 	{
+		public static readonly ISeguridad seguridad = new SeguridadBasica();
 		public static void Inicializar(AgendaTurnosContext context)
 		{
+
 			context.Database.EnsureCreated();
+
 
 			using (var transaccion = context.Database.BeginTransaction())
 			{
@@ -28,12 +32,13 @@ namespace AgendaTurnos.Data
 						var nuevoPaciente1 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
+							User = "psalta",
 							Apellido = "Salta",
 							Nombre = "Paloma",
 							Email = "psalta@gmail.com",
-							FechaAlta = DateTime.Now.Date,
+							//FechaAlta = DateTime.Now.Date,
 							Dni = "25689741",
-							Password = "paloma1234",
+							Password = seguridad.EncriptarPass("paloma1234"),
 							Telefono = "1144889966",
 							Direccion = "av directorio 580 piso 4b",
 							ObraSocial = "Particular",
@@ -46,12 +51,13 @@ namespace AgendaTurnos.Data
 						var nuevoPaciente2 = new Paciente()
 						{
 							Id = Guid.NewGuid(),
+							User = "pargento",
 							Apellido = "Argento",
 							Nombre = "Pepe",
 							Email = "pepeargento@yahoo.com.ar",
-							FechaAlta = DateTime.Now.Date,
+							//FechaAlta = DateTime.Now.Date,
 							Dni = "20145698",
-							Password = "racingCampeon",
+							Password = seguridad.EncriptarPass("racingCampeon"),
 							Telefono = "1158963214",
 							Direccion = "varela 649",
 							ObraSocial = "OSPICAL",
@@ -88,11 +94,12 @@ namespace AgendaTurnos.Data
 					var nuevoProfesional1 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
+							User = "jsalum",
 							Nombre = "Joel",
 							Apellido = "Salum",
 							Email = "kskplusst@hotmail.com",
-							FechaAlta = DateTime.Now.Date,
-							Password = "87aB2365",
+							//FechaAlta = DateTime.Now.Date,
+							Password = seguridad.EncriptarPass("87aB2365"),
 							Telefono = "11111111",
 							Direccion = "sarasa 456",
 							Dni = "1234567",
@@ -109,11 +116,12 @@ namespace AgendaTurnos.Data
 						var nuevoProfesional2 = new Profesional()
 						{
 							Id = Guid.NewGuid(),
+							User = "mpintow",
 							Nombre = "Matias",
 							Apellido = "Pintow",
 							Email = "gow.mt@hotmail.com",
-							FechaAlta = DateTime.Now.Date,
-							Password = "987654321",
+							//FechaAlta = DateTime.Now.Date,
+							Password = seguridad.EncriptarPass("987654321"),
 							Telefono = "2222222",
 							Direccion = "verdadero 456",
 							Dni = "1325789",
@@ -130,11 +138,12 @@ namespace AgendaTurnos.Data
 						var nuevoAdmin1 = new Administrador()
 						{
 							Id = Guid.NewGuid(),
+							User = "mgonzalez",
 							Nombre = "Matias",
 							Apellido = "Gonzalez",
-							Email = "msgonzalezsudak@yaoo.com.ar",
-							FechaAlta = DateTime.Now.Date,
-							Password = "ABC123qwerty",
+							Email = "msgonzalezsudak@yahoo.com.ar",
+							//FechaAlta = DateTime.Now.Date,
+							Password = seguridad.EncriptarPass("ABC123qwerty"),
 							Telefono = "1125897463",
 							Direccion = "calle falsa 123",
 							Dni = "35789645",
@@ -146,11 +155,12 @@ namespace AgendaTurnos.Data
 						var nuevoAdmin2 = new Administrador()
 						{
 							Id = Guid.NewGuid(),
+							User = "hsimpson",
 							Nombre = "Homero",
-							Apellido = "Simpsons",
+							Apellido = "Simpson",
 							Email = "amantedelacomida53@aol.com",
-							FechaAlta = DateTime.Now.Date,
-							Password = "marchIlove1",
+							//FechaAlta = DateTime.Now.Date,
+							Password = seguridad.EncriptarPass("marchIlove1"),
 							Telefono = "1169874523",
 							Direccion = "Siempreviva 742",
 							Dni = "15236478",
@@ -170,7 +180,6 @@ namespace AgendaTurnos.Data
 						PacienteId = nuevoPaciente2.Id,
 						Profesional = nuevoProfesional2,
 						Paciente = nuevoPaciente2,
-
 					};
 
 						context.Turno.Add(nuevoTurno);
@@ -186,7 +195,6 @@ namespace AgendaTurnos.Data
 						PacienteId = nuevoPaciente1.Id,
 						Profesional = nuevoProfesional1,
 						Paciente = nuevoPaciente1,
-
 					};
 
 					context.Turno.Add(nuevoTurno2);
