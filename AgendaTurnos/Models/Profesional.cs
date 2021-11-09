@@ -29,6 +29,5 @@ namespace AgendaTurnos.Models
 
         public override Rol Rol => Rol.Profesional;
 
-        public override DateTime FechaAlta => DateTime.Now.Date;
     }
 }

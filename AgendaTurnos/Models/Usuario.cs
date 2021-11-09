@@ -21,7 +21,7 @@ namespace AgendaTurnos.Models
         [EmailAddress(ErrorMessage = "Por favor, ingresar un email valido.")]
         public string Email { get; set; }
 
-        public abstract DateTime FechaAlta { get; }
+        public DateTime FechaAlta { get; set; }
 
         [Required]
         [MinLength(8, ErrorMessage = "La contraseña debe tener como minimo 8(ocho) caracteres.")]

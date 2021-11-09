@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AgendaTurnos.Controllers
 {
     //[Authorize]
-    [Authorize(Roles = "Paciente")]
+    [Authorize(Roles = "Paciente,Administrador")]
     public class PacienteController : Controller
     {
         private readonly AgendaTurnosContext _context;
@@ -62,7 +62,7 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 paciente.Id = Guid.NewGuid();
-                //paciente.FechaAlta = DateTime.Now.Date;
+                paciente.FechaAlta = DateTime.Now.Date;
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -123,34 +123,6 @@ namespace AgendaTurnos.Controllers
             return View(paciente);
         }
 
-        // GET: Paciente/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var paciente = await _context.Paciente.FirstOrDefaultAsync(m => m.Id == id);
-
-            if (paciente == null)
-            {
-                return NotFound();
-            }
-
-            return View(paciente);
-        }
-
-        // POST: Paciente/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var paciente = await _context.Paciente.FindAsync(id);
-            _context.Paciente.Remove(paciente);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool PacienteExists(Guid id)
         {
             return _context.Paciente.Any(e => e.Id == id);
@@ -173,5 +145,54 @@ namespace AgendaTurnos.Controllers
             return View(turnos);
         }
 
+        [Authorize(Roles = "Paciente")]
+        public async Task<IActionResult> EditarPerfil()
+        {
+            Guid id = Guid.Parse(User.Identity.Name);
+            var paciente = await _context.Paciente.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+            return View(paciente);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarPerfil(Guid id, [Bind("ObraSocial,Id,Email,Password,Telefono,Direccion,rol")] Paciente paciente)
+        {
+            var pacienteBase = await _context.Paciente.FindAsync(id);
+
+            //completo datos obligatorios del paciente
+            paciente.Nombre = pacienteBase.Nombre;
+            paciente.Apellido = pacienteBase.Apellido;
+            paciente.FechaAlta = pacienteBase.FechaAlta;
+            paciente.Dni = pacienteBase.Dni;
+            paciente.Password = pacienteBase.Password;
+            paciente.Turnos = pacienteBase.Turnos;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(paciente);
+                    await _context.SaveChangesAsync();
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PacienteExists(paciente.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(paciente);
+        }
     }
 }

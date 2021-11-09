@@ -57,9 +57,11 @@ namespace AgendaTurnos.Controllers
                         ClaimsIdentity identidad = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
                         // Agregamos a la credencial el nombre de usuario
-                        identidad.AddClaim(new Claim(ClaimTypes.Name, usuario));
+                        identidad.AddClaim(new Claim(ClaimTypes.Name, user.Id.ToString()));
                         // Agregamos a la credencial el Rol
                         identidad.AddClaim(new Claim(ClaimTypes.Role, user.Rol.ToString()));
+                        // Agregamos el id de la base a la cookie
+                        identidad.AddClaim(new Claim(ClaimTypes.GivenName, usuario));
 
                         ClaimsPrincipal principal = new ClaimsPrincipal(identidad);
 

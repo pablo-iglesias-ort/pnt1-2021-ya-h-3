@@ -28,14 +28,15 @@ namespace AgendaTurnos.Data
 					}
 
 
-						// 1er paciente
-						var nuevoPaciente1 = new Paciente()
-						{
+					// 1er paciente
+					var nuevoPaciente1 = new Paciente()
+					{
 							Id = Guid.NewGuid(),
 							Apellido = "Salta",
 							Nombre = "Paloma",
 							Email = "psalta@gmail.com",
 							Dni = "25689741",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("paloma1234"),
 							Telefono = "1144889966",
 							Direccion = "av directorio 580 piso 4b",
@@ -53,6 +54,7 @@ namespace AgendaTurnos.Data
 							Nombre = "Pepe",
 							Email = "pepeargento@yahoo.com.ar",
 							Dni = "20145698",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("racingCampeon"),
 							Telefono = "1158963214",
 							Direccion = "varela 649",
@@ -93,6 +95,7 @@ namespace AgendaTurnos.Data
 							Nombre = "Joel",
 							Apellido = "Salum",
 							Email = "kskplusst@hotmail.com",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("87aB2365"),
 							Telefono = "11111111",
 							Direccion = "sarasa 456",
@@ -113,6 +116,7 @@ namespace AgendaTurnos.Data
 							Nombre = "Matias",
 							Apellido = "Pintow",
 							Email = "gow.mt@hotmail.com",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("987654321"),
 							Telefono = "2222222",
 							Direccion = "verdadero 456",
@@ -133,6 +137,7 @@ namespace AgendaTurnos.Data
 							Nombre = "Matias",
 							Apellido = "Gonzalez",
 							Email = "msgonzalezsudak@yahoo.com.ar",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("ABC123qwerty"),
 							Telefono = "1125897463",
 							Direccion = "calle falsa 123",
@@ -148,6 +153,7 @@ namespace AgendaTurnos.Data
 							Nombre = "Homero",
 							Apellido = "Simpson",
 							Email = "amantedelacomida53@aol.com",
+							FechaAlta = DateTime.Now,
 							Password = seguridad.EncriptarPass("marchIlove1"),
 							Telefono = "1169874523",
 							Direccion = "Siempreviva 742",

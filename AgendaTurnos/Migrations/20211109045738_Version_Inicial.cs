@@ -30,6 +30,7 @@ namespace AgendaTurnos.Migrations
                     Nombre = table.Column<string>(nullable: false),
                     Apellido = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
+                    FechaAlta = table.Column<DateTime>(nullable: false),
                     Password = table.Column<byte[]>(nullable: false),
                     Telefono = table.Column<string>(nullable: false),
                     Direccion = table.Column<string>(nullable: false),
