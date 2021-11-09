@@ -101,34 +101,5 @@ namespace AgendaTurnos.Controllers
         {
             return View();
         }
-
-
-        public IActionResult Registrarse()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registrarse(Usuario user, string pass)
-        {
-            if (ModelState.IsValid)
-            {
-               // email.Id = Guid.NewGuid();
-                if (seguridad.ValidarPass(pass))
-                {
-               //     email.Password = seguridad.EncriptarPass(pass);
-                    //email.Rol = Rol.Paciente;
-                    _context.Add(user);
-               //     await _context.SaveChangesAsync();
-               //     return RedirectToAction(nameof(Ingresar));
-                }
-                else
-                {
-                    ModelState.AddModelError(nameof(Usuario.Password), "La contraseña no cumple con los requisitos");
-                }
-            }
-            return View(user);
-        }
     }
 }

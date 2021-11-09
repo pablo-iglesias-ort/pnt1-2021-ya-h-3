@@ -23,8 +23,7 @@ namespace AgendaTurnos.Models
 
         public DateTime FechaAlta { get; set; }
 
-        [Required]
-        [MinLength(8, ErrorMessage = "La contraseña debe tener como minimo 8(ocho) caracteres.")]
+
         [ScaffoldColumn(false)]
         public byte[] Password { get; set; }
 
