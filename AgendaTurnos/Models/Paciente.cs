@@ -10,6 +10,7 @@ namespace AgendaTurnos.Models
     {
     
         [Required]
+        [Display(Name = "Obra Social")]
         public String ObraSocial { get; set; }
 
         // Relacion con otras entidades                

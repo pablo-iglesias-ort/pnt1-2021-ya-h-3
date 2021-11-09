@@ -159,17 +159,9 @@ namespace AgendaTurnos.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarPerfil(Guid id, [Bind("ObraSocial,Id,Email,Password,Telefono,Direccion,rol")] Paciente paciente)
+        public async Task<IActionResult> EditarPerfil(Guid id, Paciente paciente)
         {
-            var pacienteBase = await _context.Paciente.FindAsync(id);
-
-            //completo datos obligatorios del paciente
-            paciente.Nombre = pacienteBase.Nombre;
-            paciente.Apellido = pacienteBase.Apellido;
-            paciente.FechaAlta = pacienteBase.FechaAlta;
-            paciente.Dni = pacienteBase.Dni;
-            paciente.Password = pacienteBase.Password;
-            paciente.Turnos = pacienteBase.Turnos;
+            //var pacienteBase = await _context.Paciente.FindAsync(id)
 
             if (ModelState.IsValid)
             {
