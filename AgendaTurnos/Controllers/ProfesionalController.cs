@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgendaTurnos.Controllers
 {
-    [Authorize(Roles = "Profesional")]
+    [Authorize(Roles = "Profesional, Administrador")]
     public class ProfesionalController : Controller
     {
         private readonly AgendaTurnosContext _context;
@@ -154,7 +154,7 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Profesional.Any(e => e.Id == id);
         }
-        public void confirmarTurnos(DateTime dia)
+        public void confirmarTurnos(Turno turno)
         {
 
         }
