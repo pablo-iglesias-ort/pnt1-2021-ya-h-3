@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AgendaTurnos.Migrations
 {
-    public partial class Version_Inicial : Migration
+    public partial class VersionInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
