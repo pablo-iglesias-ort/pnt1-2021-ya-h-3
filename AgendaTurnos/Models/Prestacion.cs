@@ -25,7 +25,6 @@ namespace AgendaTurnos.Models
 
 
         //Relacion con otras entidades
-        [Required]
         public List<Profesional> Profesionales { get; set; }
 
     }

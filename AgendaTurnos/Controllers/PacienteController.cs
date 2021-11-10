@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace AgendaTurnos.Controllers
 {
     //[Authorize]
-    [Authorize(Roles = "Paciente,Administrador")]
+    [Authorize(Roles = "Paciente")]
     public class PacienteController : Controller
     {
         private readonly AgendaTurnosContext _context;
@@ -159,17 +159,14 @@ namespace AgendaTurnos.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarPerfil(Guid id, [Bind("ObraSocial,Id,Email,Password,Telefono,Direccion,rol")] Paciente paciente)
+<<<<<<< HEAD
+        public async Task<IActionResult> EditarPerfil(Guid id, Paciente paciente)
         {
-            var pacienteBase = await _context.Paciente.FindAsync(id);
-
-            //completo datos obligatorios del paciente
-            paciente.Nombre = pacienteBase.Nombre;
-            paciente.Apellido = pacienteBase.Apellido;
-            paciente.FechaAlta = pacienteBase.FechaAlta;
-            paciente.Dni = pacienteBase.Dni;
-            paciente.Password = pacienteBase.Password;
-            paciente.Turnos = pacienteBase.Turnos;
+            //var pacienteBase = await _context.Paciente.FindAsync(id)
+=======
+        public async Task<IActionResult> EditarPerfil(Paciente paciente)
+        {
+>>>>>>> 7c865b8084ccc34d0010ff2c69a46e54c501c26c
 
             if (ModelState.IsValid)
             {
