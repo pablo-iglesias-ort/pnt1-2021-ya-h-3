@@ -194,6 +194,21 @@ namespace AgendaTurnos.Data
 					context.Turno.Add(nuevoTurno2);
 					context.SaveChanges();
 
+					var nuevoTurno3 = new Turno()
+					{
+						Id = Guid.NewGuid(),
+						Fecha = DateTime.Now.Date,
+						Activo = true,
+						Confirmado = false,
+						ProfesionalId = nuevoProfesional1.Id,
+						PacienteId = nuevoPaciente1.Id,
+						Profesional = nuevoProfesional1,
+						Paciente = nuevoPaciente1,
+					};
+
+					context.Turno.Add(nuevoTurno3);
+					context.SaveChanges();
+
 					transaccion.Commit();
 				}
 				catch

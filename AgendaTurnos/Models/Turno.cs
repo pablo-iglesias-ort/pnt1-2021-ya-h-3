@@ -23,8 +23,10 @@ namespace AgendaTurnos.Models
         public Boolean Activo { get; set; }
 
         [Required]
+        [Display(Name = "Fecha de Solicitud")]
         public DateTime FechaSolicitud { get; set; }
 
+        [Display(Name = "Descripcion de Cancelacion")]
         public String DescripcionCancelacion { get; set; }
 
         //Relacion con otras entidades

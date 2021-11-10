@@ -165,9 +165,9 @@ namespace AgendaTurnos.Controllers
 
         public void confirmarTurnos()
         {
-            //por cada profesional y por dia
 
         }
+
         public void cancelarTurno()
         {
             //descripcion si o si

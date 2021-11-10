@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace AgendaTurnos.Controllers
 {
     //[Authorize]
-    [Authorize(Roles = "Paciente")]
+    [Authorize(Roles = "Paciente,Administrador")]
     public class PacienteController : Controller
     {
         private readonly AgendaTurnosContext _context;
-
+        private readonly ISeguridad seguridad = new SeguridadBasica();
         public PacienteController(AgendaTurnosContext context)
         {
             _context = context;
@@ -47,6 +47,7 @@ namespace AgendaTurnos.Controllers
         }
 
         // GET: Paciente/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -55,17 +56,32 @@ namespace AgendaTurnos.Controllers
         // POST: Paciente/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ObraSocial,Id,Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol")] Paciente paciente)
+        public async Task<IActionResult> Create(Paciente paciente, string pass)
         {
             if (ModelState.IsValid)
             {
-                paciente.Id = Guid.NewGuid();
-                paciente.FechaAlta = DateTime.Now.Date;
-                _context.Add(paciente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (!PacienteExists(paciente.Email))
+                {
+                    if (seguridad.ValidarPass(pass))
+                    {
+                        paciente.Id = Guid.NewGuid();
+                        paciente.FechaAlta = DateTime.Now.Date;
+                        paciente.Password = seguridad.EncriptarPass(pass);
+                        _context.Add(paciente);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(Usuario.Password), "La contraseña es incorrecta");
+                    }
+                }
+                else {
+                    ModelState.AddModelError(nameof(Usuario.Email), "El Email se encuentra registrado");
+                }
             }
             return View(paciente);
         }
@@ -127,7 +143,12 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Paciente.Any(e => e.Id == id);
         }
-       
+
+        private bool PacienteExists(string email)
+        {
+            return _context.Paciente.Any(e => e.Email == email);
+        }
+
         public IActionResult Turnos(Guid id)
         {
             if (!PacienteExists(id))
@@ -162,6 +183,8 @@ namespace AgendaTurnos.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarPerfil(Paciente paciente)
         {
+            //var pacienteBase = await _context.Paciente.FindAsync(id)
+
             if (ModelState.IsValid)
             {
                 try
