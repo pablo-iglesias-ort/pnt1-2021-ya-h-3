@@ -157,17 +157,11 @@ namespace AgendaTurnos.Controllers
             }
             return View(paciente);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-<<<<<<< HEAD
-        public async Task<IActionResult> EditarPerfil(Guid id, Paciente paciente)
-        {
-            //var pacienteBase = await _context.Paciente.FindAsync(id)
-=======
         public async Task<IActionResult> EditarPerfil(Paciente paciente)
         {
->>>>>>> 7c865b8084ccc34d0010ff2c69a46e54c501c26c
-
             if (ModelState.IsValid)
             {
                 try
