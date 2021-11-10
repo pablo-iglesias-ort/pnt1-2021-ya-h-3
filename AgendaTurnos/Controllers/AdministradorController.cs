@@ -151,8 +151,9 @@ namespace AgendaTurnos.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        // aca van los metodos de Administrador:
 
+
+        // aca van los metodos de Administrador
         private bool AdministradorExists(Guid id)
         {
             return _context.Administrador.Any(e => e.Id == id);
@@ -164,9 +165,9 @@ namespace AgendaTurnos.Controllers
 
         public void confirmarTurnos()
         {
-            //por cada profesional y por dia
 
         }
+
         public void cancelarTurno()
         {
             //descripcion si o si

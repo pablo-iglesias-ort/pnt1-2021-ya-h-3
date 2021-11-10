@@ -24,7 +24,8 @@ namespace AgendaTurnos.Controllers
         // GET: Turno
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Turno.ToListAsync());
+            var turno = _context.Turno.Where(t => t.Activo);
+            return View(turno);
         }
 
         // GET: Turno/Details/5
@@ -89,17 +90,22 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Fecha, Confirmado, Activo, FechaSolicitud, DescripcionCancelacion")] Turno turno)
+        public async Task<IActionResult> Edit(Turno turno, String accion)
         {
-            if (id != turno.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if(accion == "cancelacion")
+                    {
+                        turno.Activo = false;
+                        turno.Confirmado = false;
+                      
+                    } else if( accion == "confirmacion")
+                    {
+                        turno.Confirmado = true;
+                    }
+
                     _context.Update(turno);
                     await _context.SaveChangesAsync();
                 }
@@ -151,7 +157,5 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Turno.Any(e => e.Id == id);
         }
-   
-    
     }
 }

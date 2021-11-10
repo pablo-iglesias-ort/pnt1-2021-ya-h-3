@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AgendaTurnos.Controllers
 {
-    [Authorize(Roles = "Paciente")]
+    //[Authorize]
+    [Authorize(Roles = "Paciente,Administrador")]
     public class PacienteController : Controller
     {
         private readonly AgendaTurnosContext _context;
@@ -177,10 +178,12 @@ namespace AgendaTurnos.Controllers
             }
             return View(paciente);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarPerfil(Paciente paciente)
         {
+            //var pacienteBase = await _context.Paciente.FindAsync(id)
 
             if (ModelState.IsValid)
             {

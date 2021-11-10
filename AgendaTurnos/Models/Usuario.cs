@@ -21,6 +21,7 @@ namespace AgendaTurnos.Models
         [EmailAddress(ErrorMessage = "Por favor, ingresar un email valido.")]
         public string Email { get; set; }
 
+        [Display(Name = "Fecha de Alta")]
         public DateTime FechaAlta { get; set; }
 
 
