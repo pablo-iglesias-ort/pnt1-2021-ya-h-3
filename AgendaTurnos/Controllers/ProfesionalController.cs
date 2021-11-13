@@ -173,5 +173,10 @@ namespace AgendaTurnos.Controllers
             ViewData["ProfesionalId"] = id;
             return View(turnos);
         }
+
+        public IActionResult Atendido(Guid id)
+        {
+            return View();
+        }
     }
 }

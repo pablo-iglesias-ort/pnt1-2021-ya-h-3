@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AgendaTurnos.Controllers
 {
@@ -124,7 +125,16 @@ namespace AgendaTurnos.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                if (User.IsInRole(Rol.Profesional.ToString()))
+                {
+                    Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+
+                    return RedirectToAction(nameof(Profesional.Turnos), nameof(Profesional), new {id = id } );
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             return View(turno);

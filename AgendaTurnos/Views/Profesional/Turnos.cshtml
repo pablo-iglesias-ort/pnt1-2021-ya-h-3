@@ -14,6 +14,9 @@
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Confirmado)
             </th>
             <th>
@@ -31,37 +34,41 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Confirmado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Activo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DescripcionCancelacion)
-                </td>
-                <td>
-                    @if (item.Confirmado)
-                    {
-                        <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Cancelar Turno</a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Confirmar Turno</a>
-                    }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Apellido)
+                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSolicitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionCancelacion)
+            </td>
+            <td>
+                @if (item.Confirmado)
+                {
+                    <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Cancelar Turno</a>
+                }
+                else
+                {
+                    <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Confirmar Turno</a>
+                }
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 <div>
-    <a asp-action="Details" asp-route-id=@ViewData["ProfesionalId"] asp-route-otroCampo="Details">Volver al Profesional</a>
+    <a asp-action="Index" asp-controller="Home" asp-route-id=@ViewData["ProfesionalId"]>Volver al Inicio</a>
 </div>

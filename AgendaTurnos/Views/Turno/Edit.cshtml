@@ -45,9 +45,17 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver al Turno</a>
-</div>
+    @if (User.IsInRole(Rol.Profesional.ToString()))
+
+    {
+        <div>
+            <a asp-controller="Profesional" asp-action="Turno">Volver al Turno</a>
+        </div>      
+    }else
+    {
+        <a asp-action="Index">Volver al Turno</a>
+    }
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
