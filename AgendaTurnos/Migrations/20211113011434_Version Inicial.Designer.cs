@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaTurnos.Migrations
 {
     [DbContext(typeof(AgendaTurnosContext))]
-    [Migration("20211110031942_Version Inicial")]
+    [Migration("20211113011434_Version Inicial")]
     partial class VersionInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,6 @@ namespace AgendaTurnos.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Password")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Telefono")

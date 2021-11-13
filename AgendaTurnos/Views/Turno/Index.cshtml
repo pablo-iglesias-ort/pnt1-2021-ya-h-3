@@ -7,7 +7,7 @@
 <h1>Turnos</h1>
 
 <p>
-    <a asp-action="Create">Dar de alta</a>
+    <a asp-action="Create">Solicitar Turno</a>
 </p>
 <table class="table">
     <thead>
@@ -50,11 +50,11 @@
                 @Html.DisplayFor(modelItem => item.DescripcionCancelacion)
             </td>
             <td>
-                @if (item.Confirmado)
+                @if (item.Confirmado && (this.User.IsInRole(Rol.Administrador.ToString()) || this.User.IsInRole(Rol.Paciente.ToString())))
                 {
                     <a asp-action="Edit" asp-route-id="@item.Id">Cancelar Turno</a>
                 }
-                else
+                else if(!this.User.IsInRole(Rol.Paciente.ToString()))
                 {
                     <a asp-action="Edit" asp-route-id="@item.Id">Confirmar Turno</a>  
                 }

@@ -111,7 +111,6 @@ namespace AgendaTurnos.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Password")
-                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Telefono")
