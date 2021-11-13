@@ -22,7 +22,7 @@ namespace AgendaTurnos.Controllers
         }
 
         // GET: Turno
-        [Authorize (Roles(nameof(Rol.Administrador))]
+         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             var turno = _context.Turno.Where(t => t.Activo);

@@ -167,6 +167,7 @@ namespace AgendaTurnos.Controllers
         {
 
         }
+        [Authorize(Roles = "Profesional")]
         public IActionResult Turnos(Guid id)
         {
             if (!ProfesionalExists(id))

@@ -208,5 +208,12 @@ namespace AgendaTurnos.Controllers
             }
             return View(paciente);
         }
+        public async Task<IActionResult> SolicitarTurno()
+        {
+            return View();
+        }
+
+
+
     }
 }
