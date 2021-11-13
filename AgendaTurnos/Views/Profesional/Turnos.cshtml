@@ -14,29 +14,51 @@
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente)
-            </th>      
-            <th>
                 @Html.DisplayNameFor(model => model.Confirmado)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaSolicitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcionCancelacion)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSolicitud)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Apellido)
-                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Confirmado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaSolicitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DescripcionCancelacion)
+                </td>
+                <td>
+                    @if (item.Confirmado)
+                    {
+                        <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Cancelar Turno</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Confirmar Turno</a>
+                    }
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Confirmado)
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

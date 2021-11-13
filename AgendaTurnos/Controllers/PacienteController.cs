@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AgendaTurnos.Controllers
 {
@@ -189,7 +190,14 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    _context.Update(paciente);
+                    var pacienteExistente = _context.Paciente.FirstOrDefault(p => p.Id == paciente.Id);
+
+                    pacienteExistente.ObraSocial = paciente.ObraSocial;
+                    pacienteExistente.Email = paciente.Email;
+                    pacienteExistente.Telefono = paciente.Telefono;
+                    pacienteExistente.Direccion = paciente.Direccion;
+
+                    _context.Update(pacienteExistente);
                     await _context.SaveChangesAsync();
 
                 }
@@ -208,10 +216,7 @@ namespace AgendaTurnos.Controllers
             }
             return View(paciente);
         }
-        public async Task<IActionResult> SolicitarTurno()
-        {
-            return View();
-        }
+
 
 
 

@@ -155,18 +155,8 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Profesional.Any(e => e.Id == id);
         }
-        public void confirmarTurnos(Turno turno)
-        {
 
-        }
-        public void listarTurnos(DateTime dia)
-        {
-
-        }
-        public void cantTurnosAtendidos(DateTime mes)
-        {
-
-        }
+        //Lista los turnos que tiene el profesional
         [Authorize(Roles = "Profesional")]
         public IActionResult Turnos(Guid id)
         {

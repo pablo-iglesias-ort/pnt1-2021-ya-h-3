@@ -91,7 +91,9 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Profesional,Administrador")]
         public async Task<IActionResult> Edit(Turno turno, String accion)
+
         {
             if (ModelState.IsValid)
             {
@@ -121,8 +123,10 @@ namespace AgendaTurnos.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(turno);
         }
 

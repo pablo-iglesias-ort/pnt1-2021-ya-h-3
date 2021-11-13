@@ -44,7 +44,7 @@
                             @if (this.User.IsInRole(Rol.Profesional.ToString()))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Profesional" asp-action="Turnos">Turnos</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Profesional" asp-action="Turnos" asp-route-id="@this.User.FindFirst(ClaimTypes.Name).Value">Turnos</a>
                                 </li>
                             }
                             @if (this.User.IsInRole(Rol.Paciente.ToString()))
@@ -53,10 +53,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="EditarPerfil">Editar Perfil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Turnos">Turnos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="SolicitarTurno" >Solicitar Turno</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Turnos" asp-route-id="@this.User.FindFirst(ClaimTypes.Name).Value">Turnos</a>
                                 </li>
                             }
                         }
