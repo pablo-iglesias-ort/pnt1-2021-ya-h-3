@@ -24,7 +24,6 @@ namespace AgendaTurnos.Controllers
         {
             return View();
         }
-        [Authorize(Roles = nameof(Rol.Paciente))]
         public IActionResult Privacy()
         {
             return View();
