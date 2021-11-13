@@ -44,10 +44,7 @@
                             @if (this.User.IsInRole(Rol.Profesional.ToString()))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Profesional" asp-action="Index">Profesionales</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Turno" asp-action="Index">Turnos</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Profesional" asp-action="Turnos">Turnos</a>
                                 </li>
                             }
                             @if (this.User.IsInRole(Rol.Paciente.ToString()))

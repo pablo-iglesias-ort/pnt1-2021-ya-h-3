@@ -22,6 +22,7 @@ namespace AgendaTurnos.Controllers
         }
 
         // GET: Profesional
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Profesional.ToListAsync());
