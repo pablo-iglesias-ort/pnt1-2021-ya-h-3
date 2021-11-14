@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AgendaTurnos.Models.Profesional>
+
+@{
+    ViewData["Title"] = "SeleccionarProfesional";
+
+}
+
+<h1>Seleccionar Profesional</h1>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prestacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                        @Html.DisplayNameFor(model => model.Apellido)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HoraInicio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HoraFin)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prestacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                            @Html.DisplayFor(modelItem => item.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraInicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraFin)
+                        </td>
+                        <td>
+                            <form asp-controller="Turno" asp-action="ElegirProfesional" method="post">
+                                <button type="submit">Seleccionar Profesional</button>
+                            </form>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            <a asp-controller="Turno" asp-action="SeleccionarTurno">Volver</a>
+        </div>
+
+    </div>
+</div>
+

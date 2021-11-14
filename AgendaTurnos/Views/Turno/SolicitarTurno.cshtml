@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AgendaTurnos.Models.Prestacion>
+
+@{
+    ViewData["Title"] = "SolicitarTurno";
+
+}
+
+<h1>Solicitar Turno</h1>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DuracionMinutos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td> 
+                            @Html.DisplayFor(modelItem => item.DuracionMinutos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            <form asp-controller="Turno" asp-action="SeleccionarProfesional" method="post">
+                                <button type="submit" >Seleccionar</button>
+                            </form>
+                            
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div>
+            <a asp-controller="Home" asp-action="Index" >Volver</a>
+        </div>
+
+    </div>
+</div>
+

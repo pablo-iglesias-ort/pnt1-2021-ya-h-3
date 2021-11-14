@@ -9,6 +9,7 @@ using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Collections;
 
 namespace AgendaTurnos.Controllers
 {
@@ -171,6 +172,29 @@ namespace AgendaTurnos.Controllers
         private bool TurnoExists(Guid id)
         {
             return _context.Turno.Any(e => e.Id == id);
+        }
+
+        public IActionResult SolicitarTurno()
+        {
+            return View(_context.Prestacion.ToList());
+        }
+
+        [HttpPost, ActionName("SolicitarTurno")]
+        [ValidateAntiForgeryToken]
+        public IActionResult SolicitarTurno(Prestacion prestacion, Guid id)
+        {
+            var prest = prestacion.Id;
+            return View(_context.Prestacion.ToList());
+        }
+
+
+        [HttpPost, ActionName("SeleccionarProfesional")]
+        [ValidateAntiForgeryToken]
+        public IActionResult SeleccionarProfesional()
+        { 
+
+            return View();
+
         }
     }
 }

@@ -29,5 +29,9 @@ namespace AgendaTurnos.Models
 
         public override Rol Rol => Rol.Profesional;
 
+        internal object toList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
