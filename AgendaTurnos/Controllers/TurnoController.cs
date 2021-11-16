@@ -109,6 +109,9 @@ namespace AgendaTurnos.Controllers
                     } else if( accion == "confirmacion")
                     {
                         turno.Confirmado = true;
+                    }else if(accion == "atendido")
+                    {
+                        turno.Activo = false;
                     }
 
                     _context.Update(turno);
@@ -187,14 +190,14 @@ namespace AgendaTurnos.Controllers
             return View(_context.Prestacion.ToList());
         }
 
-
-        [HttpPost, ActionName("SeleccionarProfesional")]
-        [ValidateAntiForgeryToken]
-        public IActionResult SeleccionarProfesional()
-        { 
-
-            return View();
-
+        public IActionResult SeleccionarProfesional(Guid id)
+        {
+            var profesionales = _context.Profesional.
+                                Include(profesional => profesional.Prestacion).
+                ToList().Where(p => p.PrestacionId == id);
+                                                       
+            return View(profesionales);
         }
+
     }
 }

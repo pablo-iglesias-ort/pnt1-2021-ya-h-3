@@ -37,7 +37,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Descripcion)
                         </td>
-                        <td> 
+                        <td>
                             @Html.DisplayFor(modelItem => item.DuracionMinutos)
                         </td>
                         <td>
@@ -45,17 +45,17 @@
                         </td>
                         <td>
                             <form asp-controller="Turno" asp-action="SeleccionarProfesional" method="post">
-                                <button type="submit" >Seleccionar</button>
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit">Seleccionar</button>
                             </form>
-                            
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div>
-            <a asp-controller="Home" asp-action="Index" >Volver</a>
-        </div>
+                        </tr>
+                  }
+                </tbody>
+                </table>
+                <div>
+                    <a asp-controller="Home" asp-action="Index">Volver</a>
+                </div>
 
-    </div>
+            </div>
 </div>
 

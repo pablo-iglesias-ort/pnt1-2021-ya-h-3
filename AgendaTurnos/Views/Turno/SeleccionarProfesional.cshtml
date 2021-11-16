@@ -34,7 +34,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Prestacion)
+                            @Html.DisplayFor(modelItem => item.Prestacion.Nombre)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
@@ -56,7 +56,7 @@
             </tbody>
         </table>
         <div>
-            <a asp-controller="Turno" asp-action="SeleccionarTurno">Volver</a>
+            <a asp-controller="Turno" asp-action="SolicitarTurno">Volver</a>
         </div>
 
     </div>
