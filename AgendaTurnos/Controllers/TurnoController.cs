@@ -182,14 +182,6 @@ namespace AgendaTurnos.Controllers
             return View(_context.Prestacion.ToList());
         }
 
-        [HttpPost, ActionName("SolicitarTurno")]
-        [ValidateAntiForgeryToken]
-        public IActionResult SolicitarTurno(Prestacion prestacion, Guid id)
-        {
-            var prest = prestacion.Id;
-            return View(_context.Prestacion.ToList());
-        }
-
         public IActionResult SeleccionarProfesional(Guid id)
         {
             var profesionales = _context.Profesional.
@@ -197,6 +189,20 @@ namespace AgendaTurnos.Controllers
                 ToList().Where(p => p.PrestacionId == id);
                                                        
             return View(profesionales);
+        }
+
+        public IActionResult ElegirProfesional(Profesional profesional)
+        {
+            ViewBag.profesional = profesional.Nombre + " " + profesional.Apellido;
+            ViewBag.horaInicio = profesional.HoraInicio;
+            ViewBag.horaFin = profesional.HoraFin;
+            return View("~/Views/Turno/SeleccionarFecha.cshtml");
+        }
+
+        public IActionResult SelecionarTurno(Turno turno)
+        {
+            
+            return View("~/Views/Turno/SeleccionarFecha.cshtml");
         }
 
     }

@@ -1,8 +1,29 @@
-﻿@model IEnumerable<AgendaTurnos.Models.Prestacion>
+﻿@model IEnumerable<AgendaTurnos.Models.Turno>
 
 @{
-    ViewData["Title"] = "SolicitarTurno";
-
+    ViewData["Title"] = "ElegirFecha";
 }
 
-<h1>Solicitar Turno</h1>
+<h1>Elegir fecha y hora del turno</h1>
+
+<br> El profesional: @ViewBag.profesional
+<br> Atiende de Lunes a Viernes
+<br> El turno solicitado no pueden ser mayor a 7 dias.
+<br>
+
+<form asp-controller="Turno" asp-action="SeleccionTurno" method="post">
+  <!-- Campo de entrada de fecha -->
+  Selecciona la fecha deseada:
+  <br>
+  <input type="date" name="fecha" />
+  <!-- Campo de entrada de hora -->
+  <br>
+  <br> Atiende desde @ViewBag.horaInicio
+  <br> Hasta @ViewBag.horaFin
+  <br>
+  Selecciona la hora deseada:
+  <br>
+  <input type="time" name="hora" />
+  <br><br><br>
+  <button type="submit">Seleccionar Fecha</button>
+</form>

@@ -46,8 +46,13 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.HoraFin)
                         </td>
+                         
                         <td>
                             <form asp-controller="Turno" asp-action="ElegirProfesional" method="post">
+                                <input type="hidden" name="Nombre" value="@item.Nombre" />
+                                <input type="hidden" name="Apellido" value="@item.Apellido" />
+                                <input type="hidden" name="HoraInicio" value="@item.HoraInicio" />
+                                <input type="hidden" name="HoraFin" value="@item.HoraFin" />
                                 <button type="submit">Seleccionar Profesional</button>
                             </form>
 
