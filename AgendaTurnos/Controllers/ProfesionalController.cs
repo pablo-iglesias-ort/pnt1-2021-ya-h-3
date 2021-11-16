@@ -153,7 +153,8 @@ namespace AgendaTurnos.Controllers
         // metodos del profesional
         private bool ProfesionalExists(Guid id)
         {
-            return _context.Profesional.Any(e => e.Id == id);
+            var existe = _context.Profesional.Any(e => e.Id == id);
+            return existe;
         }
 
         //Lista los turnos que tiene el profesional
@@ -169,14 +170,9 @@ namespace AgendaTurnos.Controllers
                                 .Include(profesional => profesional.Turnos)
                                     .ThenInclude(turno => turno.Paciente)
                                 .FirstOrDefault(e => e.Id == id)
-                                .Turnos;
+                                .Turnos.Where(t => t.Activo);
             ViewData["ProfesionalId"] = id;
             return View(turnos);
-        }
-
-        public IActionResult Atendido(Guid id)
-        {
-            return View();
         }
     }
 }

@@ -55,9 +55,11 @@
                 @Html.DisplayFor(modelItem => item.DescripcionCancelacion)
             </td>
             <td>
-                @if (item.Confirmado)
+                @if (item.Confirmado && item.Activo)
                 {
                     <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Cancelar Turno</a>
+                    <label>|</label>
+                    <a asp-controller="Turno" asp-action="Edit" asp-route-id="@item.Id">Atender Turno</a>
                 }
                 else
                 {

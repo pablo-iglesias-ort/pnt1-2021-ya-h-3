@@ -49,7 +49,7 @@
 
     {
         <div>
-            <a asp-controller="Profesional" asp-action="Turno">Volver al Turno</a>
+            <a asp-controller="Profesional" asp-action="Turnos" asp-route-id="@this.User.FindFirst(ClaimTypes.Name).Value">Volver al Turno</a>
         </div>      
     }else
     {
