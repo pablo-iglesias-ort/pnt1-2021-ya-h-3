@@ -221,7 +221,7 @@ namespace AgendaTurnos.Controllers
                 turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
                     .FirstOrDefault(p => p.Id == turno.ProfesionalId);
 
-                TempData["turnoConfirmado"] = turno;
+                //TempData["turnoConfirmado"] = turno;
            // }            
 
             return View(turno);
