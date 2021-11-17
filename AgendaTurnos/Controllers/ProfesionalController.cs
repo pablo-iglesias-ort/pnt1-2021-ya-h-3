@@ -50,6 +50,7 @@ namespace AgendaTurnos.Controllers
         // GET: Profesional/Create
         public IActionResult Create()
         {
+        
             return View();
         }
 
