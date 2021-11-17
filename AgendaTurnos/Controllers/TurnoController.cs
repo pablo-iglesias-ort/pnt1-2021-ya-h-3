@@ -59,6 +59,7 @@ namespace AgendaTurnos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Paciente")]
         public async Task<IActionResult> Create(DateTime fechaYhora, Guid profesionalId)
         {
             Turno turno = new Turno();
@@ -98,7 +99,6 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Profesional,Administrador,Paciente")]
         public async Task<IActionResult> Edit(Turno turno, String accion)
 
         {
@@ -114,6 +114,7 @@ namespace AgendaTurnos.Controllers
                     } else if( accion == "confirmacion")
                     {
                         turno.Confirmado = true;
+
                     }else if(accion == "atendido")
                     {
                         turno.Activo = false;
@@ -187,6 +188,7 @@ namespace AgendaTurnos.Controllers
             return _context.Turno.Any(e => e.Id == id);
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult SolicitarTurno()
         {
             Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
@@ -199,6 +201,7 @@ namespace AgendaTurnos.Controllers
 
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult SeleccionarProfesional(Guid id)
         {
             var profesionales = _context.Profesional.
@@ -209,16 +212,20 @@ namespace AgendaTurnos.Controllers
             return View(profesionales);
         }
 
-        public IActionResult SeleccionarFecha(Profesional profesional)
+        [Authorize(Roles = "Paciente")]
+        public IActionResult SeleccionarFecha(Guid? id)
         {
+            var profesional = _context.Profesional.
+                                    FirstOrDefault(p => p.Id == id);
             ViewBag.profesional = profesional.Nombre + " " + profesional.Apellido;
             ViewBag.profesionalId= profesional.Id;
-            ViewBag.horaInicio = profesional.HoraInicio.Hour +" : " +  profesional.HoraInicio.Minute;
-            ViewBag.horaFin = profesional.HoraFin.Hour +" : "+ profesional.HoraFin.Minute;
+            ViewBag.horaInicio = profesional.HoraInicio.Hour.ToString() + " : " +  profesional.HoraInicio.Minute.ToString();
+            ViewBag.horaFin = profesional.HoraFin.Hour.ToString() + " : "+ profesional.HoraFin.Minute.ToString();
             
          return View();
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult ConfirmarTurno(Turno turno, DateTime fecha, DateTime hora)
         {
             var horaTurno = new DateTime(1900, 01, 01, hora.Hour, hora.Minute, 0);
@@ -233,25 +240,24 @@ namespace AgendaTurnos.Controllers
                     var fechaYhora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hour, hora.Minute, 0);
                     if (!(_context.Turno.Any(t => t.FechaSolicitud == fechaYhora))) {
                         var pacienteId = turno.PacienteId;
-                        turno.FechaSolicitud = horaTurno;
+                        turno.FechaSolicitud = fechaYhora;
                         return View(turno);
                     }else
                     {
-                        ViewData["ErrorMessage"] = "Ya hay un turno tomado en ese dia y horario.";
-                        return RedirectToAction(nameof(SeleccionarFecha));
+                        TempData["ErrorMessage"] = "Ya hay un turno tomado en ese dia y horario.";
+                        return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
                     }
                 } else
                 {
-                    ViewData["ErrorMessage"] = "El dia del turno tiene que estar entre hoy y 7 dias mas";
-                    return RedirectToAction(nameof(SeleccionarFecha));
+                    TempData["ErrorMessage"] = "El dia del turno tiene que estar entre hoy y 7 dias mas";
+                    return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
                 }
             } else
             {
-                ViewData["ErrorMessage"] = "Tiene que elegir un horario en que el profesional trabaje";
-                return RedirectToAction(nameof(SeleccionarFecha));
+                TempData["ErrorMessage"] = "Tiene que elegir un horario en que el profesional trabaje";
+                //return View("~/View/SeleccionarFecha.cshtml");
+                return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
             }
-            return RedirectToAction(nameof(SeleccionarFecha));
-            //return View(SeleccionarFecha(turno.Profesional));
         }
 
     }
