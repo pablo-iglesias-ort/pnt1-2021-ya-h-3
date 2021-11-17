@@ -47,7 +47,6 @@ namespace AgendaTurnos.Controllers
 
             return View(turno);
         }
-
         // GET: Turno/Create
         public IActionResult Create()
         {
@@ -57,10 +56,13 @@ namespace AgendaTurnos.Controllers
         // POST: Turno/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Fecha, Confirmado, Activo, FechaSolicitud, DescripcionCancelacion")] Turno turno)
+        public async Task<IActionResult> Create(Turno turno)
         {
+            turno = (Turno)TempData["turnoConfirmado"];
+
             if (ModelState.IsValid)
             {
                 turno.Id = Guid.NewGuid();
@@ -187,22 +189,42 @@ namespace AgendaTurnos.Controllers
             var profesionales = _context.Profesional.
                                 Include(profesional => profesional.Prestacion).
                 ToList().Where(p => p.PrestacionId == id);
-                                                       
+                TempData["PrestacionId"] = id;
+            
             return View(profesionales);
         }
 
-        public IActionResult ElegirProfesional(Profesional profesional)
+        public IActionResult SeleccionarFecha(Profesional profesional)
         {
             ViewBag.profesional = profesional.Nombre + " " + profesional.Apellido;
+            ViewBag.profesionalId= profesional.Id;
             ViewBag.horaInicio = profesional.HoraInicio;
             ViewBag.horaFin = profesional.HoraFin;
-            return View("~/Views/Turno/SeleccionarFecha.cshtml");
+            
+         return View();
         }
 
-        public IActionResult SelecionarTurno(Turno turno)
+        public IActionResult ConfirmarTurno(Turno turno, DateTime fecha, DateTime hora)
         {
-            
-            return View("~/Views/Turno/SeleccionarFecha.cshtml");
+            var fechaYhora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hour, hora.Minute, 0);
+            var turnoLibre = _context.Turno.FirstOrDefault(t => t.FechaSolicitud == fechaYhora);
+
+            //if(turnoLibre == null)
+            //{
+                turno.Fecha = DateTime.Now;
+                turno.Confirmado = false;
+                turno.Activo = true;
+                turno.FechaSolicitud = fechaYhora;
+                turno.PacienteId = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+
+
+                turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
+                    .FirstOrDefault(p => p.Id == turno.ProfesionalId);
+
+                TempData["turnoConfirmado"] = turno;
+           // }            
+
+            return View(turno);
         }
 
     }

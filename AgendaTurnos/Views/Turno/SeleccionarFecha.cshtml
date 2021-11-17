@@ -11,19 +11,27 @@
 <br> El turno solicitado no pueden ser mayor a 7 dias.
 <br>
 
-<form asp-controller="Turno" asp-action="SeleccionTurno" method="post">
-  <!-- Campo de entrada de fecha -->
-  Selecciona la fecha deseada:
-  <br>
-  <input type="date" name="fecha" />
-  <!-- Campo de entrada de hora -->
-  <br>
-  <br> Atiende desde @ViewBag.horaInicio
-  <br> Hasta @ViewBag.horaFin
-  <br>
-  Selecciona la hora deseada:
-  <br>
-  <input type="time" name="hora" />
-  <br><br><br>
-  <button type="submit">Seleccionar Fecha</button>
+<form asp-controller="Turno" asp-action="ConfirmarTurno" method="post">
+    <!-- Campo de entrada de fecha -->
+    Selecciona la fecha deseada:
+    <br>
+    <input type="date" name="fecha" />
+    <!-- Campo de entrada de hora -->
+    <br>
+    <br> Atiende desde @ViewBag.horaInicio
+    <br> Hasta @ViewBag.horaFin
+    <br>
+    Selecciona la hora deseada:
+    <br>
+    <input type="time" name="hora" />
+    <br><br><br>
+    <input type="hidden" name="ProfesionalId" value="@ViewBag.profesionalId" />
+    <button type="submit">Seleccionar Fecha</button>
+
+
 </form>
+<div>
+    <br>
+    <br>
+    <a asp-controller="Turno" asp-action="SeleccionarProfesional" asp-route-id=@TempData["PrestacionId"] > Volver</a>
+</div>
