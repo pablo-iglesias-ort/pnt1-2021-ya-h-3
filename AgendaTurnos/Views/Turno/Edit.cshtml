@@ -19,7 +19,7 @@
             <input type="hidden" asp-for="ProfesionalId" />
 
 
-            @if (Model.Confirmado && User.IsInRole(Rol.Administrador.ToString()) || User.IsInRole(Rol.Paciente.ToString()))
+            @if (Model.Confirmado && (User.IsInRole(Rol.Administrador.ToString()) || User.IsInRole(Rol.Paciente.ToString())))
             {
                 <div class="form-group">
                     <label asp-for="DescripcionCancelacion" class="control-label"></label>
@@ -28,7 +28,7 @@
                 </div>
                 <input type="hidden" name="accion" value="cancelacion" />
             }
-            else if(User.IsInRole(Rol.Administrador.ToString()) && User.IsInRole(Rol.Profesional.ToString()))
+            else if (!Model.Confirmado && (User.IsInRole(Rol.Administrador.ToString()) || User.IsInRole(Rol.Profesional.ToString())))
             {
                 <div class="form-group">
                     <label asp-for="Confirmado" class="control-label"></label>
@@ -36,9 +36,7 @@
                     <span asp-validation-for="Confirmado" class="text-danger"></span>
                 </div>
                 <input type="hidden" name="accion" value="confirmacion" />
-            }
-
-            @if (Model.Confirmado && User.IsInRole(Rol.Profesional.ToString()))
+            }else if (Model.Confirmado && User.IsInRole(Rol.Profesional.ToString()))
             {
                 <input type="hidden" name="accion" value="atendido" />
             }

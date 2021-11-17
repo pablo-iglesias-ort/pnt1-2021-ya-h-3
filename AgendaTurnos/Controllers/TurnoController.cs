@@ -59,6 +59,7 @@ namespace AgendaTurnos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Paciente")]
         public async Task<IActionResult> Create(DateTime fechaYhora, Guid profesionalId)
         {
             Turno turno = new Turno();
@@ -98,7 +99,6 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Profesional,Administrador,Paciente")]
         public async Task<IActionResult> Edit(Turno turno, String accion)
 
         {
@@ -114,6 +114,7 @@ namespace AgendaTurnos.Controllers
                     } else if( accion == "confirmacion")
                     {
                         turno.Confirmado = true;
+
                     }else if(accion == "atendido")
                     {
                         turno.Activo = false;
@@ -187,6 +188,7 @@ namespace AgendaTurnos.Controllers
             return _context.Turno.Any(e => e.Id == id);
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult SolicitarTurno()
         {
             Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
@@ -199,6 +201,7 @@ namespace AgendaTurnos.Controllers
 
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult SeleccionarProfesional(Guid id)
         {
             var profesionales = _context.Profesional.
@@ -209,6 +212,7 @@ namespace AgendaTurnos.Controllers
             return View(profesionales);
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult SeleccionarFecha(Guid? id)
         {
             var profesional = _context.Profesional.
@@ -221,6 +225,7 @@ namespace AgendaTurnos.Controllers
          return View();
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult ConfirmarTurno(Turno turno, DateTime fecha, DateTime hora)
         {
             var horaTurno = new DateTime(1900, 01, 01, hora.Hour, hora.Minute, 0);
