@@ -209,12 +209,14 @@ namespace AgendaTurnos.Controllers
             return View(profesionales);
         }
 
-        public IActionResult SeleccionarFecha(Profesional profesional)
+        public IActionResult SeleccionarFecha(Guid? id)
         {
+            var profesional = _context.Profesional.
+                                    FirstOrDefault(p => p.Id == id);
             ViewBag.profesional = profesional.Nombre + " " + profesional.Apellido;
             ViewBag.profesionalId= profesional.Id;
-            ViewBag.horaInicio = profesional.HoraInicio.Hour +" : " +  profesional.HoraInicio.Minute;
-            ViewBag.horaFin = profesional.HoraFin.Hour +" : "+ profesional.HoraFin.Minute;
+            ViewBag.horaInicio = profesional.HoraInicio.Hour.ToString() + " : " +  profesional.HoraInicio.Minute.ToString();
+            ViewBag.horaFin = profesional.HoraFin.Hour.ToString() + " : "+ profesional.HoraFin.Minute.ToString();
             
          return View();
         }
@@ -233,25 +235,24 @@ namespace AgendaTurnos.Controllers
                     var fechaYhora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hour, hora.Minute, 0);
                     if (!(_context.Turno.Any(t => t.FechaSolicitud == fechaYhora))) {
                         var pacienteId = turno.PacienteId;
-                        turno.FechaSolicitud = horaTurno;
+                        turno.FechaSolicitud = fechaYhora;
                         return View(turno);
                     }else
                     {
-                        ViewData["ErrorMessage"] = "Ya hay un turno tomado en ese dia y horario.";
-                        return RedirectToAction(nameof(SeleccionarFecha));
+                        TempData["ErrorMessage"] = "Ya hay un turno tomado en ese dia y horario.";
+                        return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
                     }
                 } else
                 {
-                    ViewData["ErrorMessage"] = "El dia del turno tiene que estar entre hoy y 7 dias mas";
-                    return RedirectToAction(nameof(SeleccionarFecha));
+                    TempData["ErrorMessage"] = "El dia del turno tiene que estar entre hoy y 7 dias mas";
+                    return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
                 }
             } else
             {
-                ViewData["ErrorMessage"] = "Tiene que elegir un horario en que el profesional trabaje";
-                return RedirectToAction(nameof(SeleccionarFecha));
+                TempData["ErrorMessage"] = "Tiene que elegir un horario en que el profesional trabaje";
+                //return View("~/View/SeleccionarFecha.cshtml");
+                return RedirectToAction(nameof(SeleccionarFecha), new { id = turno.ProfesionalId });
             }
-            return RedirectToAction(nameof(SeleccionarFecha));
-            //return View(SeleccionarFecha(turno.Profesional));
         }
 
     }

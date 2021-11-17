@@ -64,9 +64,9 @@ namespace AgendaTurnos.Controllers
         {
             Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
             var prest = _context.Prestacion.FirstOrDefault(p => p.Nombre == prestacion);
-            if (prestacion == null)
+            if (prest == null)
             {
-                return NotFound();
+                ModelState.AddModelError(nameof(Profesional.Prestacion), "Prestacion no existe");
             }
 
 

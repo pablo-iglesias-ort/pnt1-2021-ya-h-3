@@ -105,7 +105,7 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
-                    administrador.Password = Seguridad.EncriptarPass(pass);
+                    administrador.Password = seguridad.EncriptarPass(pass);
                      _context.Update(administrador);
                      await _context.SaveChangesAsync();
 
