@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AgendaTurnos.Controllers
 {
@@ -15,6 +16,7 @@ namespace AgendaTurnos.Controllers
     public class ProfesionalController : Controller
     {
         private readonly AgendaTurnosContext _context;
+        private readonly ISeguridad seguridad = new SeguridadBasica();
 
         public ProfesionalController(AgendaTurnosContext context)
         {
@@ -49,6 +51,7 @@ namespace AgendaTurnos.Controllers
         // GET: Profesional/Create
         public IActionResult Create()
         {
+        
             return View();
         }
 
@@ -57,15 +60,42 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matricula,HoraInicio,HoraFin,Id,Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol")] Profesional profesional)
+        public async Task<IActionResult> Create(Profesional profesional, string pass, string prestacion)
         {
+            Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+            var prest = _context.Prestacion.FirstOrDefault(p => p.Nombre == prestacion);
+            if (prest == null)
+            {
+                ModelState.AddModelError(nameof(Profesional.Prestacion), "Prestacion no existe");
+            }
+
+
             if (ModelState.IsValid)
             {
-                profesional.Id = Guid.NewGuid();
-                //profesional.FechaAlta = DateTime.Now.Date;
-                _context.Add(profesional);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (seguridad.ValidarPass(pass))
+                {
+                    profesional.Password = seguridad.EncriptarPass(pass);
+                    profesional.Id = Guid.NewGuid();
+                    profesional.FechaAlta = DateTime.Now.Date;
+                    //hora de inicio con fecha fija
+                    var horaInicio = profesional.HoraInicio;
+                    var aux = new DateTime(1900, 01, 01, horaInicio.Hour, horaInicio.Minute, 0);
+                    profesional.HoraInicio = aux;
+                    //hora fin con fecha fija
+                    var horaFin = profesional.HoraFin;
+                    aux = new DateTime(1900, 01, 01, horaFin.Hour, horaFin.Minute, 0);
+                    profesional.HoraFin = aux;
+                    profesional.PrestacionId = prest.Id;
+                    //agrego para subir a la base
+                    _context.Add(profesional);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(Usuario.Password), "La contraseña es incorrecta");
+                }
+
             }
             return View(profesional);
         }
@@ -92,7 +122,7 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Matricula,HoraInicio,HoraFin,Id,Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni")] Profesional profesional)
+        public async Task<IActionResult> Edit(Guid id, Profesional profesional, string pass)
         {
             if (id != profesional.Id)
             {
@@ -103,6 +133,7 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
+                    profesional.Password = seguridad.EncriptarPass(pass);
                     _context.Update(profesional);
                     await _context.SaveChangesAsync();
                 }

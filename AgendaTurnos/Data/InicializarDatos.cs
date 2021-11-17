@@ -101,8 +101,8 @@ namespace AgendaTurnos.Data
 							Direccion = "sarasa 456",
 							Dni = "1234567",
 							Matricula = "123456789",
-							HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
-							HoraFin = new DateTime(2021, 02, 07, 21, 00, 00),
+							HoraInicio = new DateTime(1900, 01, 01, 08, 30, 00),
+							HoraFin = new DateTime(1900, 01, 01, 21, 00, 00),
 							Turnos = new List<Turno>(),
 							PrestacionId = nuevaPrestacion1.Id,
 						};
@@ -122,8 +122,8 @@ namespace AgendaTurnos.Data
 							Direccion = "verdadero 456",
 							Dni = "1325789",
 							Matricula = "987643211",
-							HoraInicio = new DateTime(2021, 02, 07, 08, 30, 00),
-							HoraFin = new DateTime(2021, 02, 07, 13, 30, 00),
+							HoraInicio = new DateTime(1900, 01, 01, 08, 30, 00),
+							HoraFin = new DateTime(1900, 01, 01, 13, 30, 00),
 							Turnos = new List<Turno>(),
 							PrestacionId = nuevaPrestacion2.Id,
 						};

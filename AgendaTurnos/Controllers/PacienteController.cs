@@ -114,6 +114,7 @@ namespace AgendaTurnos.Controllers
             return _context.Paciente.Any(e => e.Email == email);
         }
 
+        [Authorize(Roles = "Paciente")]
         public IActionResult Turnos(Guid id)
         {
             if (!PacienteExists(id))
@@ -144,6 +145,7 @@ namespace AgendaTurnos.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Paciente")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarPerfil(Paciente paciente)
