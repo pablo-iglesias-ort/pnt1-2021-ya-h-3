@@ -98,7 +98,7 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Profesional,Administrador")]
+        [Authorize(Roles = "Profesional,Administrador,Paciente")]
         public async Task<IActionResult> Edit(Turno turno, String accion)
 
         {
@@ -138,10 +138,15 @@ namespace AgendaTurnos.Controllers
                 {
                     Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
 
-                    return RedirectToAction(nameof(Profesional.Turnos), nameof(Profesional), new {id = id } );
+                    return RedirectToAction(nameof(Profesional.Turnos), nameof(Profesional), new { id = id });
                 }
-                else
+                else if (User.IsInRole(Rol.Paciente.ToString()))
                 {
+                    Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+                    return RedirectToAction(nameof(Paciente.Turnos), nameof(Paciente), new { id = id });
+                    
+                }
+                else {
                     return RedirectToAction(nameof(Index));
                 }
             }
