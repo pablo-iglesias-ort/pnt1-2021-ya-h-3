@@ -63,18 +63,15 @@
                 <input asp-for="Dni" class="form-control" />
                 <span asp-validation-for="Dni" class="text-danger"></span>
             </div>
-           
-            <select>
-                @foreach (var item in Model)
-                {
-                    <option value=''></option>
-                }
-            </select>
-            <br/>
             <div class="form-group">
-                <input type="submit" value="Agregar" class="btn btn-primary" />
-            </div>
-        </form>
+                <label for="Prestacion" class="control-label"></label>
+                <input name="prestacion" class="form-control" />
+                <span asp-validation-for="Prestacion" class="text-danger"></span>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Agregar" class="btn btn-primary" />
+                </div>
+</form>
     </div>
 </div>
 

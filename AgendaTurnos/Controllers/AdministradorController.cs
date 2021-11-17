@@ -16,6 +16,7 @@ namespace AgendaTurnos.Controllers
     public class AdministradorController : Controller
     {
         private readonly AgendaTurnosContext _context;
+        private readonly ISeguridad seguridad = new SeguridadBasica();
 
         public AdministradorController(AgendaTurnosContext context)
         {
@@ -63,6 +64,7 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 administrador.Id = Guid.NewGuid();
+                administrador.FechaAlta = DateTime.Now.Date;
                 //administrador.FechaAlta = DateTime.Now.Date;
                 _context.Add(administrador);
                 await _context.SaveChangesAsync();
@@ -92,7 +94,7 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol")] Administrador administrador)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nombre,Apellido,Email,FechaAlta,Password,Telefono,Direccion,Dni,Rol")] Administrador administrador, string pass)
         {
             if (id != administrador.Id)
             {
@@ -102,7 +104,8 @@ namespace AgendaTurnos.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {   
+                {
+                    administrador.Password = Seguridad.EncriptarPass(pass);
                      _context.Update(administrador);
                      await _context.SaveChangesAsync();
 
@@ -158,36 +161,6 @@ namespace AgendaTurnos.Controllers
         {
             return _context.Administrador.Any(e => e.Id == id);
         }
-        public void altaProfesional()
-        {
-
-        }
-
-        public void confirmarTurnos()
-        {
-
-        }
-
-        public void cancelarTurno()
-        {
-            //descripcion si o si
-
-        }
-        public void altaPrestacion()
-        {
-
-        }
-        public void altaAdmin()
-        {
-
-        }
-        public void deshabilitarAdmin()
-        {
-
-        }
-        public void deshabilitarProfesional()
-        {
-
-        }
+        
     }
 }

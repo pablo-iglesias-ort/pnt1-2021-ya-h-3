@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AgendaTurnos.Data;
 using AgendaTurnos.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AgendaTurnos.Controllers
 {
@@ -59,8 +60,16 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Profesional profesional, string pass)
+        public async Task<IActionResult> Create(Profesional profesional, string pass, string prestacion)
         {
+            Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+            var prest = _context.Prestacion.FirstOrDefault(p => p.Nombre == prestacion);
+            if (prestacion == null)
+            {
+                return NotFound();
+            }
+
+
             if (ModelState.IsValid)
             {
                 if (seguridad.ValidarPass(pass))
@@ -76,6 +85,7 @@ namespace AgendaTurnos.Controllers
                     var horaFin = profesional.HoraFin;
                     aux = new DateTime(1900, 01, 01, horaFin.Hour, horaFin.Minute, 0);
                     profesional.HoraFin = aux;
+                    profesional.PrestacionId = prest.Id;
                     //agrego para subir a la base
                     _context.Add(profesional);
                     await _context.SaveChangesAsync();
@@ -112,7 +122,7 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Profesional profesional)
+        public async Task<IActionResult> Edit(Guid id, Profesional profesional, string pass)
         {
             if (id != profesional.Id)
             {
@@ -123,6 +133,7 @@ namespace AgendaTurnos.Controllers
             {
                 try
                 {
+                    profesional.Password = seguridad.EncriptarPass(pass);
                     _context.Update(profesional);
                     await _context.SaveChangesAsync();
                 }
