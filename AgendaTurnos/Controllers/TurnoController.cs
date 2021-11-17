@@ -189,7 +189,14 @@ namespace AgendaTurnos.Controllers
 
         public IActionResult SolicitarTurno()
         {
+            Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+
+            if (_context.Turno.Where(p => p.PacienteId == id).Where(p => p.Activo == true).Any())
+            {
+                return RedirectToAction(nameof(Paciente.Turnos), nameof(Paciente), new { id = id });
+            }
             return View(_context.Prestacion.ToList());
+
         }
 
         public IActionResult SeleccionarProfesional(Guid id)
@@ -215,12 +222,17 @@ namespace AgendaTurnos.Controllers
         public IActionResult ConfirmarTurno(Turno turno, DateTime fecha, DateTime hora)
         {
             var fechaYhora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hour, hora.Minute, 0);
-            
-            turno.FechaSolicitud = fechaYhora;
-            turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
-                .FirstOrDefault(p => p.Id == turno.ProfesionalId);
 
-            return View(turno);
+            var pacienteId = turno.PacienteId;
+                        
+            
+                turno.FechaSolicitud = fechaYhora;
+                turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
+                    .FirstOrDefault(p => p.Id == turno.ProfesionalId);
+
+               return View(turno);
+         
+
         }
 
     }

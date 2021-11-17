@@ -128,7 +128,7 @@ namespace AgendaTurnos.Controllers
                                 .FirstOrDefault(e => e.Id == id)
                                 .Turnos;
             ViewData["PacienteId"] = id;
-            return View(turnos);
+            return View(turnos.Where(p => p.Activo == true));
         }
 
         [Authorize(Roles = "Paciente")]
