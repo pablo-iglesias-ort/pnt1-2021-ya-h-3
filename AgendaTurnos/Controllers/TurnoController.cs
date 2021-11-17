@@ -59,18 +59,21 @@ namespace AgendaTurnos.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Turno turno)
+        public async Task<IActionResult> Create(DateTime fechaYhora, Guid profesionalId)
         {
-            turno = (Turno)TempData["turnoConfirmado"];
-
-            if (ModelState.IsValid)
-            {
-                turno.Id = Guid.NewGuid();
-                _context.Add(turno);
+            Turno turno = new Turno();
+            turno.Id = Guid.NewGuid();
+            //var turnoLibre = _context.Turno.FirstOrDefault(t => t.FechaSolicitud == fechaYhora);
+            turno.Fecha = DateTime.Now;
+            turno.Confirmado = false;
+            turno.Activo = true;
+            turno.FechaSolicitud = fechaYhora;
+            turno.PacienteId = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+            turno.ProfesionalId = profesionalId;
+            
+            _context.Add(turno);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(turno);
+            return RedirectToAction(nameof(Paciente.Turnos), nameof(Paciente), new { id = turno.PacienteId });
         }
 
         // GET: Turno/Edit/5
@@ -95,7 +98,7 @@ namespace AgendaTurnos.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Profesional,Administrador")]
+        [Authorize(Roles = "Profesional,Administrador,Paciente")]
         public async Task<IActionResult> Edit(Turno turno, String accion)
 
         {
@@ -135,10 +138,15 @@ namespace AgendaTurnos.Controllers
                 {
                     Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
 
-                    return RedirectToAction(nameof(Profesional.Turnos), nameof(Profesional), new {id = id } );
+                    return RedirectToAction(nameof(Profesional.Turnos), nameof(Profesional), new { id = id });
                 }
-                else
+                else if (User.IsInRole(Rol.Paciente.ToString()))
                 {
+                    Guid id = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
+                    return RedirectToAction(nameof(Paciente.Turnos), nameof(Paciente), new { id = id });
+                    
+                }
+                else {
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -207,22 +215,10 @@ namespace AgendaTurnos.Controllers
         public IActionResult ConfirmarTurno(Turno turno, DateTime fecha, DateTime hora)
         {
             var fechaYhora = new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hour, hora.Minute, 0);
-            var turnoLibre = _context.Turno.FirstOrDefault(t => t.FechaSolicitud == fechaYhora);
-
-            //if(turnoLibre == null)
-            //{
-                turno.Fecha = DateTime.Now;
-                turno.Confirmado = false;
-                turno.Activo = true;
-                turno.FechaSolicitud = fechaYhora;
-                turno.PacienteId = Guid.Parse(User.FindFirst(ClaimTypes.Name).Value);
-
-
-                turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
-                    .FirstOrDefault(p => p.Id == turno.ProfesionalId);
-
-                //TempData["turnoConfirmado"] = turno;
-           // }            
+            
+            turno.FechaSolicitud = fechaYhora;
+            turno.Profesional = _context.Profesional.Include(p => p.Prestacion)
+                .FirstOrDefault(p => p.Id == turno.ProfesionalId);
 
             return View(turno);
         }
