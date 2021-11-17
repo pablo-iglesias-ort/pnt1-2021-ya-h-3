@@ -10,7 +10,7 @@
     <h2>Turno</h2>
     <h3>Verifique los datos antes de confirmar.</h3>
     <hr />
-    <form asp-controller="Turno" asp-action="Create" method="post">
+    <form asp-controller="Turno" asp-action="Create" method="Post">
         <dl class="row">
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.FechaSolicitud)
@@ -32,7 +32,8 @@
                 @Html.DisplayFor(model => model.Profesional.Prestacion.Nombre)
             </dd>
         </dl>
-      
+        <input type="hidden" name="fechaYhora" value="@Model.FechaSolicitud" />
+        <input type="hidden" name="profesionalId" value="@Model.Profesional.Id" />
         <button type="submit">Seleccionar Fecha</button>
 
 
